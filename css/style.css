@@ -220,7 +220,7 @@ body{background:#050e13}
 .brand-logo{width:46px;height:46px;object-fit:contain;border-radius:50%;display:block;background:#fff;box-shadow:0 0 0 1px rgba(216,181,106,.45),0 6px 20px rgba(0,0,0,.22)}
 .brand-mark{display:none}
 .v3-hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:#061217}
-.hero-backdrop{position:absolute;inset:0;background-image:url("../assets/images/kesupen-team.jpeg");background-size:cover;background-position:center 40%;filter:saturate(.72) contrast(1.08);transform:scale(1.03)}
+.hero-backdrop{position:absolute;inset:0;background-image:url("../assets/images/home-background.jpeg");background-size:cover;background-position:center 38%;filter:saturate(.88) contrast(1.06);transform:scale(1.03)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,12,16,.95) 0%,rgba(3,12,16,.72) 42%,rgba(3,12,16,.35) 72%,rgba(3,12,16,.78) 100%),linear-gradient(0deg,#050e13 0%,transparent 25%,rgba(5,14,19,.3) 100%)}
 .v3-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .65fr;gap:70px;align-items:center}
 .v3-hero-copy h1{font-size:clamp(4rem,8vw,8rem);line-height:.82;letter-spacing:-.065em;margin:12px 0 26px}
