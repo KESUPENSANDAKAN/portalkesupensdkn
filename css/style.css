@@ -318,20 +318,37 @@ img{max-width:100%}
    Keep original V11 design; desktop positioning only.
    ========================================================= */
 @media (min-width:901px){
+  /* HOME HERO POSITION V2 — actual layout adjustment */
   .v3-hero-inner{
-    grid-template-columns:minmax(0,1fr) minmax(300px,.55fr);
-    gap:110px;
-    width:min(1280px,calc(100% - 36px));
+    width:calc(100% - 80px);
+    max-width:none;
+    margin-left:40px;
+    margin-right:40px;
+    grid-template-columns:minmax(0,1fr) 340px;
+    gap:150px;
+    align-items:center;
   }
   .v3-hero-copy{
-    transform:translateX(-28px);
+    transform:translateX(-10px);
   }
   .v3-event-card{
-    width:min(370px,100%);
+    width:340px;
+    max-width:340px;
     justify-self:end;
-    transform:translateY(-34px);
-    padding:26px;
+    transform:translateY(-58px);
+    padding:24px;
   }
+}
+
+@media (min-width:901px) and (max-width:1200px){
+  .v3-hero-inner{
+    width:calc(100% - 48px);
+    margin-left:24px;
+    margin-right:24px;
+    grid-template-columns:minmax(0,1fr) 310px;
+    gap:70px;
+  }
+  .v3-event-card{width:310px;max-width:310px;}
 }
 
 @media (max-width:900px){
