@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KESUPEN Sandakan | Portal Rasmi</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header premium-nav">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">K</span>
+      <span>KESUPEN<br><b>SANDAKAN</b></span>
+    </a>
+    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav>
+      <a href="index.html">UTAMA</a>
+      <a href="programs.html">PROGRAM</a>
+      <a href="gallery.html">GALERI</a>
+      <a href="event.html?id=hari-keluarga-kesupen-sandakan-2026">E-BOOK</a>
+      <a href="about.html">TENTANG</a>
+      <a href="contact.html">HUBUNGI</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page-reveal">
+  <section class="v3-hero">
+    <div class="hero-backdrop"></div>
+    <div class="hero-overlay"></div>
+    <div class="container v3-hero-inner">
+      <div class="v3-hero-copy">
+        <p class="eyebrow">KESUPEN SANDAKAN • PORTAL PROGRAM & AKTIVITI</p>
+        <h1>Bersama<br><span>KESUPEN</span><br>Sandakan</h1>
+        <p class="hero-lead">Satu komuniti. Satu keluarga. Satu matlamat. Temui program, aktiviti, e-book dan kisah kebersamaan KESUPEN Sandakan.</p>
+        <div class="hero-actions">
+          <a class="btn" href="programs.html">TEROKAI PROGRAM <span>→</span></a>
+          <a class="btn secondary" href="gallery.html">LIHAT GALERI</a>
+        </div>
+      </div>
+
+      <aside class="v3-event-card" id="featuredEvent">
+        <div class="event-card-top"><span class="event-status">PROGRAM AKAN DATANG</span><span id="heroCountdown">—</span></div>
+        <p class="eyebrow">PROGRAM UTAMA</p>
+        <h2 id="heroEventTitle">Memuatkan…</h2>
+        <div class="event-meta">
+          <span id="heroEventDate">—</span>
+          <span id="heroEventLocation">—</span>
+        </div>
+        <a id="heroEventLink" class="btn" href="programs.html">LIHAT BUTIRAN <span>→</span></a>
+      </aside>
+    </div>
+    <div class="scroll-cue">SCROLL <span>↓</span></div>
+  </section>
+
+  <section class="section v3-featured">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">HIGHLIGHT</p><h2>Program Akan Datang</h2></div>
+        <a href="programs.html">Lihat semua →</a>
+      </div>
+      <div id="upcomingGrid" class="v3-event-grid"></div>
+    </div>
+  </section>
+
+  <section class="sandakan-banner">
+    <div class="sandakan-image"></div>
+    <div class="sandakan-overlay"></div>
+    <div class="container sandakan-content">
+      <p class="eyebrow">SANDAKAN</p>
+      <h2>Lebih Erat.<br><span>Lebih Bermakna.</span></h2>
+      <p>Portal digital yang menghimpunkan perjalanan program dan aktiviti KESUPEN Sandakan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">EXPLORE</p><h2>Aktiviti & Portal</h2></div>
+      </div>
+      <div class="v3-card-grid">
+        <a class="v3-card" href="programs.html"><span>01</span><h3>Program</h3><p>Upcoming dan arkib program.</p><b>TEROKAI →</b></a>
+        <a class="v3-card" href="gallery.html"><span>02</span><h3>Galeri</h3><p>Album gambar mengikut program.</p><b>LIHAT →</b></a>
+        <a class="v3-card" href="event.html?id=hari-keluarga-kesupen-sandakan-2026"><span>03</span><h3>E-Book</h3><p>Akses terus buku program KESUPEN.</p><b>BUKA →</b></a>
+        <a class="v3-card" href="about.html"><span>04</span><h3>Tentang</h3><p>Kenali KESUPEN Sandakan.</p><b>KENALI →</b></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section v3-gallery-preview">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">MOMENTS</p><h2>Galeri Terkini</h2></div><a href="gallery.html">Lihat galeri →</a></div>
+      <div class="gallery-mosaic">
+        <a href="gallery.html" class="mosaic-main"><img src="assets/images/kesupen-team.jpeg" alt="Aktiviti KESUPEN Sandakan"></a>
+        <div class="mosaic-side"><div class="mosaic-placeholder">KESUPEN<br>SANDAKAN</div><div class="mosaic-placeholder">AKTIVITI<br>& KOMUNITI</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v3-cta">
+    <div class="container">
+      <p class="eyebrow">KESUPEN SANDAKAN</p>
+      <h2>Bersama Membina<br><span>Komuniti Yang Lebih Baik.</span></h2>
+      <a class="btn" href="contact.html">HUBUNGI KAMI <span>→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-v3"><span>© 2026 KESUPEN Sandakan</span><span>Satu Komuniti • Satu Keluarga • Satu Matlamat</span></div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/events.js"></script>
+<script>
+(function(){
+  const events = (window.KESUPEN_EVENTS || []);
+  const upcoming = events.filter(e=>e.status==="upcoming").sort((a,b)=>a.date.localeCompare(b.date));
+  const featured = upcoming[0];
+  if(featured){
+    document.getElementById("heroEventTitle").textContent=featured.title;
+    document.getElementById("heroEventDate").textContent=featured.dateText;
+    document.getElementById("heroEventLocation").textContent=featured.location;
+    document.getElementById("heroEventLink").href=featured.eventPage || "programs.html";
+    const grid=document.getElementById("upcomingGrid");
+    upcoming.slice(0,3).forEach(e=>{
+      const c=document.createElement("article"); c.className="v3-event-tile";
+      c.innerHTML=`<div class="date-box"><strong>${e.date.split("-")[2]}</strong><small>${e.dateText.split(" ")[1]||""}</small></div><div><p class="eyebrow">${e.category}</p><h3>${e.title}</h3><p>${e.location}</p></div><a href="${e.eventPage||"programs.html"}">→</a>`;
+      grid.appendChild(c);
+    });
+    function tick(){
+      const days=Math.max(0,Math.ceil((new Date(featured.date+"T00:00:00")-new Date())/86400000));
+      document.getElementById("heroCountdown").textContent=days===0?"HARI INI":days+" HARI";
+    }
+    tick(); setInterval(tick,60000);
+  }
+})();
+</script>
+</body>
+</html>

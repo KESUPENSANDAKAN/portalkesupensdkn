@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programs | KESUPEN Sandakan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header premium-nav">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">K</span>
+      <span>KESUPEN<br><b>SANDAKAN</b></span>
+    </a>
+    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav>
+      <a href="index.html">UTAMA</a>
+      <a href="programs.html">PROGRAM</a>
+      <a href="gallery.html">GALERI</a>
+      <a href="event.html?id=hari-keluarga-kesupen-sandakan-2026">E-BOOK</a>
+      <a href="about.html">TENTANG</a>
+      <a href="contact.html">HUBUNGI</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page-reveal">
+  <section class="hero compact">
+    <div class="container">
+      <p class="eyebrow">KESUPEN SANDAKAN</p>
+      <h1>PROGRAM</h1>
+      <p>Senarai program akan datang dan rekod program terdahulu.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-tabs" role="tablist">
+        <button class="filter-btn active" data-filter="all">SEMUA</button>
+        <button class="filter-btn" data-filter="upcoming">UPCOMING</button>
+        <button class="filter-btn" data-filter="past">PAST EVENTS</button>
+      </div>
+      <div id="eventGrid" class="cards-grid"></div>
+      <p id="emptyState" class="muted" hidden>Tiada program dalam kategori ini.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container"><p>© 2026 KESUPEN Sandakan. Portal Program & Aktiviti.</p></div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/events.js"></script>
+<script src="js/programs.js"></script>
+</body>
+</html>

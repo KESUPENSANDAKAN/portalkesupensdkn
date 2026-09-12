@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | KESUPEN Sandakan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header premium-nav">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">K</span>
+      <span>KESUPEN<br><b>SANDAKAN</b></span>
+    </a>
+    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav>
+      <a href="index.html">UTAMA</a>
+      <a href="programs.html">PROGRAM</a>
+      <a href="gallery.html">GALERI</a>
+      <a href="event.html?id=hari-keluarga-kesupen-sandakan-2026">E-BOOK</a>
+      <a href="about.html">TENTANG</a>
+      <a href="contact.html">HUBUNGI</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page-reveal">
+  <section class="hero compact">
+    <div class="container">
+      <p class="eyebrow">KESUPEN SANDAKAN</p>
+      <h1>GALERI</h1>
+      <p>Galeri disusun mengikut program supaya gambar setiap acara mudah dicari.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="albumGrid" class="gallery-albums"></div>
+      <p id="galleryEmpty" class="muted" hidden>Belum ada gambar untuk album ini.</p>
+    </div>
+  </section>
+</main>
+
+<div id="lightbox" class="lightbox" hidden>
+  <button id="lightboxClose" class="lightbox-close" aria-label="Tutup">×</button>
+  <img id="lightboxImage" alt="">
+</div>
+
+<footer class="site-footer">
+  <div class="container"><p>© 2026 KESUPEN Sandakan. Portal Program & Aktiviti.</p></div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/gallery.js"></script>
+<script>
+const albumGrid = document.getElementById("albumGrid");
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const closeBtn = document.getElementById("lightboxClose");
+
+KESUPEN_GALLERY.forEach(album => {
+  const card = document.createElement("article");
+  card.className = "gallery-album";
+
+  const cover = album.cover
+    ? `<img src="${album.cover}" alt="${album.title}" loading="lazy">`
+    : `<div class="gallery-placeholder">TIADA GAMBAR</div>`;
+
+  card.innerHTML = `
+    <div class="gallery-cover">${cover}</div>
+    <div class="gallery-album-body">
+      <p class="eyebrow">${album.dateText}</p>
+      <h2>${album.title}</h2>
+      <p>${album.images.length} gambar</p>
+      <div class="gallery-thumbs">
+        ${album.images.map(src => `<button class="thumb" data-src="${src}" aria-label="Lihat gambar"><img src="${src}" alt="" loading="lazy"></button>`).join("")}
+      </div>
+    </div>
+  `;
+  albumGrid.appendChild(card);
+});
+
+function openLightbox(src) {
+  lightboxImage.src = src;
+  lightbox.hidden = false;
+}
+document.addEventListener("click", e => {
+  const thumb = e.target.closest(".thumb");
+  if (thumb) openLightbox(thumb.dataset.src);
+});
+function closeLightbox() {
+  lightbox.hidden = true;
+  lightboxImage.src = "";
+}
+closeBtn.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+</script>
+</body>
+</html>
