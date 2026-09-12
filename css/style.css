@@ -217,7 +217,8 @@ body{background:#050e13}
 .premium-nav .nav-wrap{min-height:82px}
 .brand{display:flex;align-items:center;gap:10px;line-height:.9;font-size:.72rem;letter-spacing:.06em}
 .brand b{color:var(--teal)}
-.brand-mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(216,181,106,.65);border-radius:50%;color:var(--gold);font-weight:950}
+.brand-logo{width:46px;height:46px;object-fit:contain;border-radius:50%;display:block;background:#fff;box-shadow:0 0 0 1px rgba(216,181,106,.45),0 6px 20px rgba(0,0,0,.22)}
+.brand-mark{display:none}
 .v3-hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:#061217}
 .hero-backdrop{position:absolute;inset:0;background-image:url("../assets/images/kesupen-team.jpeg");background-size:cover;background-position:center 40%;filter:saturate(.72) contrast(1.08);transform:scale(1.03)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,12,16,.95) 0%,rgba(3,12,16,.72) 42%,rgba(3,12,16,.35) 72%,rgba(3,12,16,.78) 100%),linear-gradient(0deg,#050e13 0%,transparent 25%,rgba(5,14,19,.3) 100%)}
@@ -291,7 +292,7 @@ body{background:#050e13}
   .premium-nav nav{display:none;width:100%;padding:8px 0 2px}
   .premium-nav nav.menu-open{display:flex;flex-direction:column;max-height:70vh;overflow:auto}
   .premium-nav nav a{padding:12px 14px}
-  .brand-logo{width:38px;height:38px}
+  .brand-logo{width:40px;height:40px}
 }
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 a{transition:color .2s ease}
