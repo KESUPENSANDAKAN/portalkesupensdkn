@@ -312,3 +312,30 @@ img{max-width:100%}
 .values{margin-top:72px}.values h3{font-size:2rem;margin:.2em 0 22px}.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.value{padding:26px;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);min-height:150px;box-shadow:var(--shadow);color:var(--text)}
 .value b{font-size:1rem;color:var(--gold)}.value p{font-size:.82rem;color:var(--muted);line-height:1.65;margin-top:12px}.back{display:inline-block;margin-top:45px;color:var(--teal);font-size:.75rem;font-weight:900;text-decoration:none;letter-spacing:.08em}
 @media(max-width:760px){.about-hero{padding:95px 0 62px}.about-main{padding:60px 0 70px}.about-grid{grid-template-columns:1fr;gap:30px}.value-grid{grid-template-columns:1fr}.about-hero h1{font-size:clamp(3.3rem,16vw,5.5rem)}}
+
+/* =========================================================
+   HOME HERO POSITION UPDATE — USER REQUEST
+   Keep original V11 design; desktop positioning only.
+   ========================================================= */
+@media (min-width:901px){
+  .v3-hero-inner{
+    grid-template-columns:minmax(0,1fr) minmax(300px,.55fr);
+    gap:110px;
+    width:min(1280px,calc(100% - 36px));
+  }
+  .v3-hero-copy{
+    transform:translateX(-28px);
+  }
+  .v3-event-card{
+    width:min(370px,100%);
+    justify-self:end;
+    transform:translateY(-34px);
+    padding:26px;
+  }
+}
+
+@media (max-width:900px){
+  .v3-hero-copy,
+  .v3-event-card{transform:none}
+  .v3-event-card{width:100%;}
+}
