@@ -296,3 +296,18 @@ body{background:#050e13}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 a{transition:color .2s ease}
 img{max-width:100%}
+/* FINAL V4 FIX — About page uses the same premium panel/theme as the rest of the portal */
+.about-page{padding-top:0;background:transparent;color:var(--text)}
+.about-hero{padding:120px 0 82px;background:linear-gradient(135deg,rgba(7,19,26,.96),rgba(11,32,41,.92));border-bottom:1px solid var(--line)}
+.about-hero .kicker{color:var(--accent)}
+.about-hero h1{font-size:clamp(4rem,8vw,8rem);line-height:.84;letter-spacing:-.065em;margin:0;color:var(--text)}
+.about-hero h1 span{color:var(--teal);opacity:.72}
+.about-main{padding:78px 0 90px}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:start}
+.about-main h2{font-size:clamp(2rem,4.5vw,4.3rem);line-height:1;letter-spacing:-.045em;margin:0 0 24px;color:var(--text)}
+.about-main p{font-size:1rem;line-height:1.8;color:var(--muted)}
+.facts{display:grid;gap:12px}.fact{padding:23px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);color:var(--text)}
+.fact b{display:block;font-size:.72rem;letter-spacing:.12em;margin-bottom:8px;color:var(--accent)}.fact span{font-size:.9rem;color:var(--muted)}
+.values{margin-top:72px}.values h3{font-size:2rem;margin:.2em 0 22px}.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.value{padding:26px;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);min-height:150px;box-shadow:var(--shadow);color:var(--text)}
+.value b{font-size:1rem;color:var(--gold)}.value p{font-size:.82rem;color:var(--muted);line-height:1.65;margin-top:12px}.back{display:inline-block;margin-top:45px;color:var(--teal);font-size:.75rem;font-weight:900;text-decoration:none;letter-spacing:.08em}
+@media(max-width:760px){.about-hero{padding:95px 0 62px}.about-main{padding:60px 0 70px}.about-grid{grid-template-columns:1fr;gap:30px}.value-grid{grid-template-columns:1fr}.about-hero h1{font-size:clamp(3.3rem,16vw,5.5rem)}}
