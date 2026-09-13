@@ -993,14 +993,7 @@ body.lightbox-open{overflow:hidden;}
   .event-lightbox-arrow{display:none;}
   .event-lightbox-stage img{max-width:94vw;max-height:76vh;}
 }
-/* Homepage Highlights / Moments — gold links */
-.v3-featured .section-heading > a,
-.v3-gallery-preview .section-heading > a{
-  color:var(--accent2);
-  opacity:1;
-  font-weight:800;
-}
-.v3-featured .section-heading > a:hover,
-.v3-gallery-preview .section-heading > a:hover{
-  color:#f0d18a;
-}
+
+/* Homepage Highlights / Moments links */
+.home-highlight-link{color:#d8b56a!important;font-weight:800;text-decoration:none}
+.home-highlight-link:hover{color:#f0d58f!important}
