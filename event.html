@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Program | KESUPEN Sandakan</title>
-  <link rel="icon" type="image/jpeg" href="assets/images/kesupen-logo.jpeg">
+  <link rel="icon" type="image/png" href="assets/images/kesupen-logo.png">
   <link rel="stylesheet" href="css/style.css">
 <meta property="og:site_name" content="KESUPEN Sandakan">
 <meta property="og:title" content="Program | KESUPEN Sandakan">
@@ -29,7 +29,7 @@
 <header class="site-header premium-nav">
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="KESUPEN Sandakan">
-      <img class="brand-logo" src="assets/images/kesupen-logo.jpeg" alt="Logo KESUPEN Sandakan">
+      <img class="brand-logo" src="assets/images/kesupen-logo.png" alt="Logo KESUPEN Sandakan">
       <span>KESUPEN<br><b>SANDAKAN</b></span>
     </a>
     <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">☰</button>
@@ -63,19 +63,15 @@
       </article>
 
       <article class="card">
-        <p class="eyebrow">AKSES PROGRAM</p>
+        <p class="eyebrow">AKSES</p>
         <h2>Program Hub</h2>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
           <a class="btn secondary" href="gallery.html">GALERI</a>
+          <a class="btn secondary" href="contact.html">LOCATION</a>
         </div>
       </article>
-      <article class="card event-location-card">
-        <p class="eyebrow">LOCATION</p>
-        <h2 id="locationTitle">Lokasi Event</h2>
-        <p id="locationAddress"></p>
-        <a id="eventMapLink" class="btn" href="#" target="_blank" rel="noopener">BUKA GOOGLE MAPS</a>
-      </article>    </div>
+    </div>
   </section>
 
   <section class="section">
@@ -119,13 +115,6 @@ if (!event) {
   document.getElementById("eventDate").textContent = event.dateText;
   document.getElementById("eventLocation").textContent = event.location;
   document.getElementById("eventCategory").textContent = event.category;
-
-  // Location is specific to the current event, while contact.html remains the office location.
-  const locationText = event.location || "";
-  document.getElementById("locationAddress").textContent = locationText;
-  const mapQuery = encodeURIComponent(locationText);
-  document.getElementById("eventMapLink").href = event.mapUrl ||
-    `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   const ebook = document.getElementById("ebookLink");
   if (event.ebook && event.ebook !== "#") {
