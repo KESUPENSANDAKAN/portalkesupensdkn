@@ -98,11 +98,21 @@ if (selectedEventId && albums.length) {
     galleryEmpty.hidden = false;
     galleryEmpty.textContent = "Belum ada gambar untuk program ini.";
   } else {
-    albumGrid.innerHTML = `<div class="gallery-event-grid">${images.map((src, index) => `
-      <button class="event-gallery-image" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
-        <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
-      </button>
-    `).join("")}</div>`;
+    albumGrid.innerHTML = `
+      <div class="event-gallery-carousel" data-gallery-count="${images.length}">
+        <button class="event-gallery-arrow prev" type="button" aria-label="Gambar sebelumnya">‹</button>
+        <div class="event-gallery-viewport" tabindex="0" aria-label="Galeri gambar program">
+          <div class="event-gallery-track">
+            ${images.map((src, index) => `
+              <button class="event-gallery-image" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
+                <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
+              </button>
+            `).join("")}
+          </div>
+        </div>
+        <button class="event-gallery-arrow next" type="button" aria-label="Gambar seterusnya">›</button>
+        <div class="event-gallery-meta" aria-live="polite"><span id="eventGalleryCounter">01 / ${String(images.length).padStart(2,"0")}</span></div>
+      </div>`;
   }
 } else {
   // Galeri utama biasa: kekalkan paparan album.
@@ -150,6 +160,57 @@ document.addEventListener("click", e => {
 lightboxClose.addEventListener("click", closeLightbox);
 lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+// Galeri event: desktop guna arrow, mobile boleh swipe kiri/kanan.
+const eventCarousel = document.querySelector(".event-gallery-carousel");
+if (eventCarousel) {
+  const viewport = eventCarousel.querySelector(".event-gallery-viewport");
+  const track = eventCarousel.querySelector(".event-gallery-track");
+  const slides = Array.from(eventCarousel.querySelectorAll(".event-gallery-image"));
+  const prev = eventCarousel.querySelector(".event-gallery-arrow.prev");
+  const next = eventCarousel.querySelector(".event-gallery-arrow.next");
+  const counter = eventCarousel.querySelector("#eventGalleryCounter");
+  let current = 0;
+  let startX = 0;
+  let dragging = false;
+
+  function goTo(index, smooth = true) {
+    current = (index + slides.length) % slides.length;
+    const slide = slides[current];
+    const left = slide.offsetLeft - Math.max(0, (viewport.clientWidth - slide.offsetWidth) / 2);
+    viewport.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+    if (counter) counter.textContent = `${String(current + 1).padStart(2,"0")} / ${String(slides.length).padStart(2,"0")}`;
+  }
+
+  prev.addEventListener("click", () => goTo(current - 1));
+  next.addEventListener("click", () => goTo(current + 1));
+
+  viewport.addEventListener("touchstart", e => {
+    startX = e.changedTouches[0].clientX;
+    dragging = true;
+  }, { passive: true });
+  viewport.addEventListener("touchend", e => {
+    if (!dragging) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    dragging = false;
+    if (Math.abs(dx) > 45) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  viewport.addEventListener("scroll", () => {
+    let best = 0, distance = Infinity;
+    slides.forEach((slide, i) => {
+      const d = Math.abs(slide.offsetLeft - viewport.scrollLeft - Math.max(0, (viewport.clientWidth - slide.offsetWidth) / 2));
+      if (d < distance) { distance = d; best = i; }
+    });
+    if (best !== current) {
+      current = best;
+      if (counter) counter.textContent = `${String(current + 1).padStart(2,"0")} / ${String(slides.length).padStart(2,"0")}`;
+    }
+  }, { passive: true });
+
+  window.addEventListener("resize", () => goTo(current, false));
+  goTo(0, false);
+}
 </script>
 </body>
 </html>
