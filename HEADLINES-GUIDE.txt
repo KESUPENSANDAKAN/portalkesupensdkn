@@ -1,0 +1,19 @@
+KESUPEN HEADLINES
+=================
+Lokasi senarai headline:
+index.html
+
+Cari:
+window.KESUPEN_HEADLINES = [
+
+Tambah sebanyak mana headline yang diperlukan menggunakan format:
+{
+  text: "TEKS HEADLINE",
+  link: "event.html?id=..." 
+}
+
+Tempoh paparan sekarang: 4 saat setiap headline.
+Selepas headline terakhir, senarai bermula semula dari headline pertama.
+Headline berhenti sementara apabila tab browser tidak aktif dan disambung semula apabila kembali.
+
+V12 flipbook tidak disentuh.
