@@ -88,56 +88,87 @@ const albums = selectedEventId
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxClose = document.getElementById("lightboxClose");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+const lightboxCounter = document.getElementById("lightboxCounter");
 
-if (selectedEventId && albums.length) {
-  const album = albums[0];
-  document.title = `${album.title} | Galeri KESUPEN Sandakan`;
-  const heading = document.querySelector(".hero.compact h1");
-  const intro = document.querySelector(".hero.compact .container > p:not(.eyebrow)");
-  if (heading) heading.textContent = album.title;
-  if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri.";
+let lightboxImages = [];
+let lightboxIndex = 0;
+let lightboxStartX = 0;
+let activeTitle = "Galeri KESUPEN Sandakan";
 
-  // Untuk Galeri Program: thumbnail kecil. Klik thumbnail untuk paparan besar.
-  const images = Array.isArray(album.images) ? album.images.filter(Boolean) : [];
-  if (!images.length) {
-    galleryEmpty.hidden = false;
-    galleryEmpty.textContent = "Belum ada gambar untuk program ini.";
+function setEmpty(message){
+  galleryEmpty.hidden = false;
+  galleryEmpty.textContent = message;
+}
+
+function renderLightbox(index){
+  if (!lightboxImages.length) return;
+  lightboxIndex = (index + lightboxImages.length) % lightboxImages.length;
+  lightboxImage.src = lightboxImages[lightboxIndex];
+  lightboxImage.alt = `${activeTitle} — gambar ${lightboxIndex + 1}`;
+  lightboxCounter.textContent = `${String(lightboxIndex + 1).padStart(2,"0")} / ${String(lightboxImages.length).padStart(2,"0")}`;
+}
+
+function openLightbox(images, index, title){
+  lightboxImages = images;
+  activeTitle = title || "Galeri KESUPEN Sandakan";
+  renderLightbox(index);
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+}
+
+function closeLightbox(){
+  lightbox.hidden = true;
+  lightboxImage.src = "";
+  document.body.classList.remove("lightbox-open");
+}
+
+function stepLightbox(delta){
+  if (lightboxImages.length) renderLightbox(lightboxIndex + delta);
+}
+
+if (selectedEventId) {
+  if (!albums.length) {
+    setEmpty("Program tidak dijumpai dalam galeri.");
   } else {
-    albumGrid.innerHTML = `
-      <div class="event-gallery-grid" data-gallery-count="${images.length}">
-        ${images.map((src, index) => `
-          <button class="event-gallery-thumb" data-index="${index}" data-src="${src}" type="button" aria-label="Buka gambar ${index + 1}">
-            <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
-            <span class="event-gallery-thumb-no">${String(index + 1).padStart(2,"0")}</span>
-          </button>
-        `).join("")}
-      </div>`;
+    const album = albums[0];
+    activeTitle = album.title;
+    document.title = `${album.title} | Galeri KESUPEN Sandakan`;
+    const heading = document.querySelector(".hero.compact h1");
+    const intro = document.querySelector(".hero.compact .container > p:not(.eyebrow)");
+    if (heading) heading.textContent = album.title;
+    if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri.";
+
+    const images = Array.isArray(album.images) ? album.images.filter(Boolean) : [];
+    if (!images.length) {
+      setEmpty("Belum ada gambar untuk program ini.");
+    } else {
+      galleryEmpty.hidden = true;
+      albumGrid.innerHTML = `
+        <div class="event-gallery-grid" data-gallery-count="${images.length}">
+          ${images.map((src, index) => `
+            <button class="event-gallery-thumb" data-index="${index}" type="button" aria-label="Buka gambar ${index + 1}">
+              <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
+              <span class="event-gallery-thumb-no">${String(index + 1).padStart(2,"0")}</span>
+            </button>
+          `).join("")}
+        </div>`;
+      albumGrid.querySelectorAll(".event-gallery-thumb").forEach((thumb, index) => {
+        thumb.addEventListener("click", () => openLightbox(images, index, album.title));
+      });
+    }
   }
 } else {
-    albumGrid.innerHTML = `
-      <div class="event-gallery-carousel" data-gallery-count="${images.length}">
-        <button class="event-gallery-arrow prev" type="button" aria-label="Gambar sebelumnya">‹</button>
-        <div class="event-gallery-viewport" tabindex="0" aria-label="Galeri gambar program">
-          <div class="event-gallery-track">
-            ${images.map((src, index) => `
-              <button class="event-gallery-image" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
-                <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
-              </button>
-            `).join("")}
-          </div>
-        </div>
-        <button class="event-gallery-arrow next" type="button" aria-label="Gambar seterusnya">›</button>
-        <div class="event-gallery-meta" aria-live="polite"><span id="eventGalleryCounter">01 / ${String(images.length).padStart(2,"0")}</span></div>
-      </div>`;
-  }
-} else {
-  // Galeri utama biasa: kekalkan paparan album.
-  if (!albums.length || !albums.some(album => album.images && album.images.length)) {
-    galleryEmpty.hidden = false;
-    galleryEmpty.textContent = "Belum ada gambar dalam galeri.";
+  const hasImages = albums.some(album => Array.isArray(album.images) && album.images.length);
+  if (!albums.length || !hasImages) {
+    setEmpty("Belum ada gambar dalam galeri.");
+  } else {
+    galleryEmpty.hidden = true;
   }
 
   albums.forEach(album => {
+    const images = Array.isArray(album.images) ? album.images.filter(Boolean) : [];
     const card = document.createElement("article");
     card.className = "gallery-album";
     const cover = album.cover
@@ -148,65 +179,23 @@ if (selectedEventId && albums.length) {
       <div class="gallery-album-body">
         <p class="eyebrow">${album.dateText}</p>
         <h2>${album.title}</h2>
-        <p>${album.images.length} gambar</p>
+        <p>${images.length} gambar</p>
         <div class="gallery-thumbs">
-          ${album.images.map(src => `<button class="thumb" data-src="${src}" aria-label="Lihat gambar"><img src="${src}" alt="" loading="lazy"></button>`).join("")}
+          ${images.map((src, index) => `<button class="thumb" data-index="${index}" aria-label="Lihat gambar"><img src="${src}" alt="" loading="lazy"></button>`).join("")}
         </div>
-      </div>
-    `;
+      </div>`;
     albumGrid.appendChild(card);
+    card.querySelectorAll(".thumb").forEach((thumb, index) => {
+      thumb.addEventListener("click", () => openLightbox(images, index, album.title));
+    });
   });
 }
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxClose = document.getElementById("lightboxClose");
-const lightboxPrev = document.getElementById("lightboxPrev");
-const lightboxNext = document.getElementById("lightboxNext");
-const lightboxCounter = document.getElementById("lightboxCounter");
-
-let eventGalleryImages = [];
-let eventGalleryIndex = 0;
-let lightboxStartX = 0;
-
-if (selectedEventId && albums.length) {
-  eventGalleryImages = Array.isArray(albums[0].images) ? albums[0].images.filter(Boolean) : [];
-}
-
-function renderLightbox(index, updateHistory = true) {
-  if (!eventGalleryImages.length) return;
-  eventGalleryIndex = (index + eventGalleryImages.length) % eventGalleryImages.length;
-  lightboxImage.src = eventGalleryImages[eventGalleryIndex];
-  lightboxImage.alt = `${albums[0]?.title || "Galeri"} — gambar ${eventGalleryIndex + 1}`;
-  lightboxCounter.textContent = `${String(eventGalleryIndex + 1).padStart(2,"0")} / ${String(eventGalleryImages.length).padStart(2,"0")}`;
-}
-
-function openLightbox(index) {
-  renderLightbox(index, false);
-  lightbox.hidden = false;
-  document.body.classList.add("lightbox-open");
-}
-function closeLightbox() {
-  lightbox.hidden = true;
-  lightboxImage.src = "";
-  document.body.classList.remove("lightbox-open");
-}
-function stepLightbox(delta) {
-  if (!eventGalleryImages.length) return;
-  renderLightbox(eventGalleryIndex + delta);
-}
-
-document.addEventListener("click", e => {
-  const target = e.target.closest(".thumb, .event-gallery-thumb");
-  if (target) {
-    const index = Number(target.dataset.index);
-    openLightbox(Number.isFinite(index) ? index : 0);
-  }
-});
 lightboxClose.addEventListener("click", closeLightbox);
 lightboxPrev.addEventListener("click", () => stepLightbox(-1));
 lightboxNext.addEventListener("click", () => stepLightbox(1));
 lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+
 document.addEventListener("keydown", e => {
   if (lightbox.hidden) return;
   if (e.key === "Escape") closeLightbox();
@@ -214,7 +203,6 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") stepLightbox(1);
 });
 
-// Paparan besar: desktop guna arrow kiri/kanan, mobile guna swipe kiri/kanan.
 lightboxImage.addEventListener("touchstart", e => {
   lightboxStartX = e.changedTouches[0].clientX;
 }, { passive: true });
