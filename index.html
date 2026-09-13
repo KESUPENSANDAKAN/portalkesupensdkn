@@ -62,7 +62,11 @@
       <aside class="v3-event-card hero-news-card" id="featuredNews">
         <div class="event-card-top news-card-top">
           <span class="event-status">BERITA TERKINI</span>
-          <span class="hero-news-counter-spacer" aria-hidden="true"></span>
+          <div class="hero-news-nav" aria-label="Navigasi berita">
+            <button type="button" id="heroNewsPrev" aria-label="Berita sebelumnya">‹</button>
+            <span id="heroNewsCounterTop">01 / 04</span>
+            <button type="button" id="heroNewsNext" aria-label="Berita seterusnya">›</button>
+          </div>
         </div>
         <div class="hero-news-window" aria-live="polite">
           <p class="eyebrow" id="heroNewsCategory">PROGRAM</p>
@@ -72,11 +76,6 @@
         </div>
         <div class="hero-news-controls">
           <a id="heroNewsLink" class="hero-news-more" href="programs.html">Lihat Selanjutnya →</a>
-          <div class="hero-news-nav" aria-label="Navigasi berita">
-            <button type="button" id="heroNewsPrev" aria-label="Berita sebelumnya">‹</button>
-            <span id="heroNewsCounterBottom">01 / 04</span>
-            <button type="button" id="heroNewsNext" aria-label="Berita seterusnya">›</button>
-          </div>
         </div>
       </aside>
     </div>
@@ -161,7 +160,7 @@
     {category:"GALERI",title:"DOKUMENTASI PROGRAM & AKTIVITI KESUPEN",summary:"Koleksi visual program dan aktiviti KESUPEN Sandakan dihimpunkan melalui galeri digital portal.",date:"GALERI KESUPEN",link:"gallery.html"},
     {category:"PORTAL",title:"PUSAT RUJUKAN DIGITAL KESUPEN SANDAKAN",summary:"Maklumat program, aktiviti, dokumentasi dan buku program disusun secara mudah untuk capaian pengguna.",date:"PORTAL KESUPEN",link:"about.html"}
   ];
-  const title=document.getElementById("heroNewsTitle"), summary=document.getElementById("heroNewsSummary"), category=document.getElementById("heroNewsCategory"), date=document.getElementById("heroNewsDate"), link=document.getElementById("heroNewsLink"), counter=document.getElementById("heroNewsCounterBottom");
+  const title=document.getElementById("heroNewsTitle"), summary=document.getElementById("heroNewsSummary"), category=document.getElementById("heroNewsCategory"), date=document.getElementById("heroNewsDate"), link=document.getElementById("heroNewsLink"), counter=document.getElementById("heroNewsCounterTop");
   const card=document.getElementById("featuredNews");
   if(!title || !news.length) return;
   let i=0,timer;
