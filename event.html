@@ -68,7 +68,23 @@
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
           <a class="btn secondary" href="gallery.html">GALERI</a>
-          <a class="btn secondary" href="contact.html">LOCATION</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section event-location-section" id="eventLocationSection">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LOKASI PROGRAM</p>
+          <h2>Lokasi</h2>
+        </div>
+      </div>
+      <article class="card event-location-card">
+        <p id="eventLocationAddress">Lokasi tidak dinyatakan.</p>
+        <div class="event-actions">
+          <a id="eventMapLink" class="btn secondary" href="#" target="_blank" rel="noopener" hidden>BUKA GOOGLE MAPS</a>
         </div>
       </article>
     </div>
@@ -113,8 +129,21 @@ if (!event) {
   document.getElementById("eventTitle").textContent = event.title;
   document.getElementById("eventDescription").textContent = event.description;
   document.getElementById("eventDate").textContent = event.dateText;
-  document.getElementById("eventLocation").textContent = event.location;
+  document.getElementById("eventLocation").textContent = event.location || "Lokasi tidak dinyatakan.";
   document.getElementById("eventCategory").textContent = event.category;
+
+  const locationSection = document.getElementById("eventLocationSection");
+  const locationAddress = document.getElementById("eventLocationAddress");
+  const eventMapLink = document.getElementById("eventMapLink");
+  if (event.location) {
+    locationAddress.textContent = event.location;
+    const mapUrl = event.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`;
+    eventMapLink.href = mapUrl;
+    eventMapLink.hidden = false;
+  } else {
+    locationAddress.textContent = "Lokasi belum dinyatakan untuk program ini.";
+    eventMapLink.hidden = true;
+  }
 
   const ebook = document.getElementById("ebookLink");
   if (event.ebook && event.ebook !== "#") {

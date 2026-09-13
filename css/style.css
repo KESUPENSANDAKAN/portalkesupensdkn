@@ -942,3 +942,9 @@ button,a{-webkit-tap-highlight-color:transparent}
   .hero-news-more{font-size:.66rem}
   .hero-news-nav button{width:30px !important;height:30px !important}
 }
+
+
+/* Event-specific location */
+.event-location-card{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.event-location-card p{margin:0;font-weight:700;}
+@media(max-width:700px){.event-location-card{display:block}.event-location-card .event-actions{margin-top:16px}}
