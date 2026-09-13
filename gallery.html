@@ -63,7 +63,12 @@
 
 <div id="lightbox" class="lightbox" hidden>
   <button id="lightboxClose" class="lightbox-close" aria-label="Tutup">×</button>
-  <img id="lightboxImage" alt="">
+  <button id="lightboxPrev" class="event-lightbox-arrow prev" type="button" aria-label="Gambar sebelumnya">‹</button>
+  <div class="event-lightbox-stage">
+    <img id="lightboxImage" alt="">
+    <div id="lightboxCounter" class="event-lightbox-counter">01 / 01</div>
+  </div>
+  <button id="lightboxNext" class="event-lightbox-arrow next" type="button" aria-label="Gambar seterusnya">›</button>
 </div>
 
 <footer class="site-footer">
@@ -92,12 +97,23 @@ if (selectedEventId && albums.length) {
   if (heading) heading.textContent = album.title;
   if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri.";
 
-  // Untuk Galeri Program: terus paparkan semua gambar event.
+  // Untuk Galeri Program: thumbnail kecil. Klik thumbnail untuk paparan besar.
   const images = Array.isArray(album.images) ? album.images.filter(Boolean) : [];
   if (!images.length) {
     galleryEmpty.hidden = false;
     galleryEmpty.textContent = "Belum ada gambar untuk program ini.";
   } else {
+    albumGrid.innerHTML = `
+      <div class="event-gallery-grid" data-gallery-count="${images.length}">
+        ${images.map((src, index) => `
+          <button class="event-gallery-thumb" data-index="${index}" data-src="${src}" type="button" aria-label="Buka gambar ${index + 1}">
+            <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
+            <span class="event-gallery-thumb-no">${String(index + 1).padStart(2,"0")}</span>
+          </button>
+        `).join("")}
+      </div>`;
+  }
+} else {
     albumGrid.innerHTML = `
       <div class="event-gallery-carousel" data-gallery-count="${images.length}">
         <button class="event-gallery-arrow prev" type="button" aria-label="Gambar sebelumnya">‹</button>
@@ -142,8 +158,31 @@ if (selectedEventId && albums.length) {
   });
 }
 
-function openLightbox(src) {
-  lightboxImage.src = src;
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxClose = document.getElementById("lightboxClose");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+const lightboxCounter = document.getElementById("lightboxCounter");
+
+let eventGalleryImages = [];
+let eventGalleryIndex = 0;
+let lightboxStartX = 0;
+
+if (selectedEventId && albums.length) {
+  eventGalleryImages = Array.isArray(albums[0].images) ? albums[0].images.filter(Boolean) : [];
+}
+
+function renderLightbox(index, updateHistory = true) {
+  if (!eventGalleryImages.length) return;
+  eventGalleryIndex = (index + eventGalleryImages.length) % eventGalleryImages.length;
+  lightboxImage.src = eventGalleryImages[eventGalleryIndex];
+  lightboxImage.alt = `${albums[0]?.title || "Galeri"} — gambar ${eventGalleryIndex + 1}`;
+  lightboxCounter.textContent = `${String(eventGalleryIndex + 1).padStart(2,"0")} / ${String(eventGalleryImages.length).padStart(2,"0")}`;
+}
+
+function openLightbox(index) {
+  renderLightbox(index, false);
   lightbox.hidden = false;
   document.body.classList.add("lightbox-open");
 }
@@ -152,65 +191,37 @@ function closeLightbox() {
   lightboxImage.src = "";
   document.body.classList.remove("lightbox-open");
 }
+function stepLightbox(delta) {
+  if (!eventGalleryImages.length) return;
+  renderLightbox(eventGalleryIndex + delta);
+}
 
 document.addEventListener("click", e => {
-  const target = e.target.closest(".thumb, .event-gallery-image");
-  if (target) openLightbox(target.dataset.src);
+  const target = e.target.closest(".thumb, .event-gallery-thumb");
+  if (target) {
+    const index = Number(target.dataset.index);
+    openLightbox(Number.isFinite(index) ? index : 0);
+  }
 });
 lightboxClose.addEventListener("click", closeLightbox);
+lightboxPrev.addEventListener("click", () => stepLightbox(-1));
+lightboxNext.addEventListener("click", () => stepLightbox(1));
 lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+document.addEventListener("keydown", e => {
+  if (lightbox.hidden) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") stepLightbox(-1);
+  if (e.key === "ArrowRight") stepLightbox(1);
+});
 
-// Galeri event: desktop guna arrow, mobile boleh swipe kiri/kanan.
-const eventCarousel = document.querySelector(".event-gallery-carousel");
-if (eventCarousel) {
-  const viewport = eventCarousel.querySelector(".event-gallery-viewport");
-  const track = eventCarousel.querySelector(".event-gallery-track");
-  const slides = Array.from(eventCarousel.querySelectorAll(".event-gallery-image"));
-  const prev = eventCarousel.querySelector(".event-gallery-arrow.prev");
-  const next = eventCarousel.querySelector(".event-gallery-arrow.next");
-  const counter = eventCarousel.querySelector("#eventGalleryCounter");
-  let current = 0;
-  let startX = 0;
-  let dragging = false;
-
-  function goTo(index, smooth = true) {
-    current = (index + slides.length) % slides.length;
-    const slide = slides[current];
-    const left = slide.offsetLeft - Math.max(0, (viewport.clientWidth - slide.offsetWidth) / 2);
-    viewport.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
-    if (counter) counter.textContent = `${String(current + 1).padStart(2,"0")} / ${String(slides.length).padStart(2,"0")}`;
-  }
-
-  prev.addEventListener("click", () => goTo(current - 1));
-  next.addEventListener("click", () => goTo(current + 1));
-
-  viewport.addEventListener("touchstart", e => {
-    startX = e.changedTouches[0].clientX;
-    dragging = true;
-  }, { passive: true });
-  viewport.addEventListener("touchend", e => {
-    if (!dragging) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    dragging = false;
-    if (Math.abs(dx) > 45) goTo(current + (dx < 0 ? 1 : -1));
-  }, { passive: true });
-
-  viewport.addEventListener("scroll", () => {
-    let best = 0, distance = Infinity;
-    slides.forEach((slide, i) => {
-      const d = Math.abs(slide.offsetLeft - viewport.scrollLeft - Math.max(0, (viewport.clientWidth - slide.offsetWidth) / 2));
-      if (d < distance) { distance = d; best = i; }
-    });
-    if (best !== current) {
-      current = best;
-      if (counter) counter.textContent = `${String(current + 1).padStart(2,"0")} / ${String(slides.length).padStart(2,"0")}`;
-    }
-  }, { passive: true });
-
-  window.addEventListener("resize", () => goTo(current, false));
-  goTo(0, false);
-}
+// Paparan besar: desktop guna arrow kiri/kanan, mobile guna swipe kiri/kanan.
+lightboxImage.addEventListener("touchstart", e => {
+  lightboxStartX = e.changedTouches[0].clientX;
+}, { passive: true });
+lightboxImage.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - lightboxStartX;
+  if (Math.abs(dx) > 45) stepLightbox(dx < 0 ? 1 : -1);
+}, { passive: true });
 </script>
 </body>
 </html>
