@@ -430,3 +430,279 @@ img{max-width:100%}
 .about-quote{padding:110px 0;background:radial-gradient(circle at 70% 50%,rgba(85,215,196,.14),transparent 35%),#061016}.about-quote blockquote{max-width:900px;margin:12px 0 35px;font-size:clamp(2.4rem,5vw,5rem);line-height:.98;letter-spacing:-.055em;font-weight:900}
 @media(max-width:900px){.about-intro{padding:120px 0 70px}.about-intro-grid{grid-template-columns:1fr;gap:55px}.about-identity{justify-self:stretch;max-width:none}.identity-image{height:420px}.identity-card{left:20px;bottom:20px}.statement-grid{grid-template-columns:1fr;gap:25px}.about-module-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.about-intro-copy h1{font-size:clamp(3.5rem,17vw,5.2rem)}.about-lead{font-size:1rem!important}.identity-image{height:330px;border-radius:22px}.identity-card{left:12px;right:12px;padding:14px 16px}.identity-card img{width:46px;height:46px}.about-statement,.about-modules,.about-quote{padding:75px 0}.statement-grid h2{font-size:clamp(2.8rem,13vw,4.5rem)}.about-module{grid-template-columns:40px 1fr 22px;padding:22px;min-height:145px}}
+
+
+/* =========================================================
+   MOBILE + TABLET RESPONSIVE UPGRADE — V11
+   Desktop design remains unchanged above 1024px.
+   ========================================================= */
+html,body{max-width:100%;overflow-x:hidden}
+button,a{-webkit-tap-highlight-color:transparent}
+.btn,.button,.filter-btn,.mobile-menu-btn{touch-action:manipulation}
+
+/* Tablet */
+@media (max-width:1024px){
+  .container{width:min(100% - 40px,960px)}
+  .section{padding:64px 0}
+  .premium-nav .nav-wrap{min-height:72px}
+  .brand-logo{width:44px;height:44px;object-fit:contain}
+  .brand{font-size:.7rem}
+
+  .v3-hero{min-height:auto;padding:72px 0 66px;align-items:stretch}
+  .v3-hero-inner{
+    position:relative!important;inset:auto!important;
+    width:min(100% - 40px,960px)!important;
+    margin:0 auto!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 310px!important;
+    gap:34px!important;
+    align-items:start!important;
+  }
+  .v3-hero-copy,.v3-event-card{
+    position:relative!important;left:auto!important;right:auto!important;top:auto!important;
+    transform:none!important;
+  }
+  .v3-hero-copy{width:auto!important;padding-top:22px}
+  .v3-hero-copy h1{font-size:clamp(3.7rem,9vw,6.3rem);line-height:.85}
+  .hero-lead{font-size:1rem!important;line-height:1.65!important}
+  .v3-event-card{width:100%!important;max-width:none!important;margin-top:4px}
+  .scroll-cue{display:none}
+
+  .v3-event-grid{grid-template-columns:1fr 1fr}
+  .v3-card-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-mosaic{grid-template-columns:1.55fr .8fr}
+  .mosaic-main{min-height:360px}
+  .sandakan-banner{min-height:520px}
+  .sandakan-content h2{font-size:clamp(3.4rem,8vw,5.4rem)}
+
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-2{gap:18px}
+  .card{padding:22px}
+  .hero.compact{padding:82px 0 66px}
+  .hero.compact h1{font-size:clamp(3.2rem,8vw,5.5rem)}
+
+  .about-intro{padding:100px 0 72px}
+  .about-intro-grid{grid-template-columns:1fr .78fr;gap:42px}
+  .about-intro-copy h1{font-size:clamp(3.7rem,8vw,6.2rem)}
+  .identity-image{height:420px}
+  .identity-card{left:-24px}
+  .statement-grid{gap:45px}
+}
+
+/* Tablet + phone navigation */
+@media (max-width:900px){
+  .premium-nav .nav-wrap{position:relative;flex-wrap:wrap}
+  .mobile-menu-btn{
+    display:grid;place-items:center;
+    position:absolute;right:0;top:15px;
+    width:42px;height:42px;padding:0;
+    border-radius:12px;font-size:1.15rem;
+  }
+  .premium-nav nav{
+    display:none;
+    position:absolute;
+    left:0;right:0;top:64px;
+    width:100%;
+    padding:10px;
+    border:1px solid var(--line);
+    border-radius:0 0 18px 18px;
+    background:rgba(5,16,22,.97);
+    box-shadow:0 18px 40px rgba(0,0,0,.32);
+    backdrop-filter:blur(18px);
+    z-index:200;
+  }
+  .premium-nav nav.menu-open{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    max-height:none;
+    overflow:visible;
+  }
+  .premium-nav nav a{
+    min-height:44px;
+    display:flex;align-items:center;justify-content:center;
+    padding:10px 8px;
+    border-radius:10px;
+    text-align:center;
+    font-size:.7rem;
+  }
+
+  .v3-hero-inner{grid-template-columns:1fr!important;gap:24px!important}
+  .v3-hero-copy{padding-top:4px}
+  .v3-event-card{max-width:620px!important}
+  .v3-event-grid{grid-template-columns:1fr}
+  .sandakan-banner{min-height:500px}
+  .sandakan-overlay{background:linear-gradient(90deg,rgba(3,13,17,.93),rgba(3,13,17,.65),rgba(3,13,17,.56))}
+  .gallery-mosaic{grid-template-columns:1fr}
+  .mosaic-side{grid-template-columns:1fr 1fr}
+  .mosaic-placeholder{min-height:150px}
+  .grid-2{grid-template-columns:1fr}
+  .cards-grid{grid-template-columns:1fr 1fr}
+  .contact-list div{align-items:flex-start}
+  .about-intro-grid{grid-template-columns:1fr;gap:42px}
+  .about-identity{max-width:650px;justify-self:stretch}
+  .identity-card{left:18px}
+  .statement-grid{grid-template-columns:1fr}
+}
+
+/* Phone */
+@media (max-width:650px){
+  .container{width:calc(100% - 28px)}
+  .premium-nav .nav-wrap{min-height:66px}
+  .brand-logo{width:42px;height:42px}
+  .brand{gap:9px;font-size:.66rem;letter-spacing:.055em}
+  .mobile-menu-btn{top:12px;right:0;width:42px;height:42px}
+
+  .premium-nav nav{top:59px;padding:9px}
+  .premium-nav nav.menu-open{grid-template-columns:1fr 1fr}
+  .premium-nav nav a{min-height:46px;font-size:.69rem}
+
+  .v3-hero{
+    padding:54px 0 48px;
+    min-height:auto;
+  }
+  .hero-backdrop{background-position:58% center;transform:scale(1.02)}
+  .hero-overlay{
+    background:
+      linear-gradient(180deg,rgba(3,12,16,.72) 0%,rgba(3,12,16,.88) 55%,rgba(5,14,19,.98) 100%),
+      linear-gradient(90deg,rgba(3,12,16,.88),rgba(3,12,16,.45));
+  }
+  .v3-hero-inner{width:calc(100% - 28px)!important;gap:22px!important}
+  .v3-hero-copy h1{
+    font-size:clamp(3.15rem,16vw,4.65rem);
+    line-height:.86;letter-spacing:-.06em;
+    margin:9px 0 20px;
+  }
+  .hero-lead{font-size:.94rem!important;line-height:1.62!important}
+  .hero-actions,.event-actions{display:grid;grid-template-columns:1fr;gap:9px}
+  .btn,.button{
+    min-height:46px;
+    display:inline-flex;align-items:center;justify-content:center;
+    text-align:center;padding:12px 16px;
+  }
+  .v3-event-card{padding:20px!important;border-radius:20px}
+  .v3-event-card h2{font-size:1.45rem}
+  .event-card-top{margin-bottom:18px}
+  .event-meta{font-size:.82rem}
+
+  .section{padding:54px 0}
+  .section-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:22px;
+    padding-bottom:16px;
+  }
+  .section-heading h2{font-size:clamp(2rem,10vw,3rem)}
+  .section-heading>a{font-size:.8rem}
+
+  .v3-event-tile{
+    grid-template-columns:58px minmax(0,1fr) 22px;
+    gap:12px;padding:16px;border-radius:16px;
+  }
+  .date-box{padding-right:11px}
+  .date-box strong{font-size:1.65rem}
+  .v3-event-tile h3{font-size:.98rem;line-height:1.2}
+  .v3-event-tile p:not(.eyebrow){font-size:.76rem}
+
+  .sandakan-banner{min-height:430px}
+  .sandakan-image{background-position:center 50%}
+  .sandakan-content h2{font-size:clamp(2.8rem,14vw,4rem)}
+  .sandakan-content p:not(.eyebrow){font-size:.92rem}
+
+  .v3-card-grid{grid-template-columns:1fr;gap:12px}
+  .v3-card{min-height:160px;padding:20px}
+  .v3-card h3{margin:34px 0 7px;font-size:1.35rem}
+  .v3-card p{min-height:auto}
+
+  .gallery-mosaic{gap:10px}
+  .mosaic-main{min-height:250px;border-radius:16px}
+  .mosaic-side{grid-template-columns:1fr 1fr;gap:10px}
+  .mosaic-placeholder{min-height:112px;border-radius:16px;font-size:.8rem}
+
+  .v3-cta{padding:68px 0}
+  .v3-cta h2{font-size:clamp(2.35rem,12vw,3.7rem);margin-bottom:24px}
+
+  .hero.compact{padding:62px 0 48px}
+  .hero.compact h1{
+    font-size:clamp(2.65rem,13vw,4.1rem);
+    letter-spacing:-.05em;overflow-wrap:anywhere;
+  }
+  .hero.compact p:not(.eyebrow){font-size:.94rem;line-height:1.6}
+
+  .cards-grid{grid-template-columns:1fr;gap:14px}
+  .card{padding:20px;border-radius:18px}
+  .card h2{font-size:1.45rem;overflow-wrap:anywhere}
+  .filter-tabs{
+    flex-wrap:nowrap;overflow-x:auto;
+    padding-bottom:4px;margin-bottom:22px;
+    scrollbar-width:none;
+  }
+  .filter-tabs::-webkit-scrollbar{display:none}
+  .filter-btn{flex:0 0 auto;min-height:42px;padding:9px 14px}
+
+  .gallery-cover{aspect-ratio:4/3}
+  .gallery-album-body{padding:18px}
+  .gallery-album-body h2{font-size:1.25rem;line-height:1.2}
+  .gallery-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .thumb{width:100%;height:auto;aspect-ratio:1.25/1}
+  .lightbox{padding:16px}
+  .lightbox img{max-width:100%;max-height:82svh}
+  .lightbox-close{top:8px;right:12px;font-size:38px}
+
+  .contact-list div{
+    display:grid;grid-template-columns:1fr;
+    gap:5px;padding:13px 0;
+  }
+  .contact-list span{text-align:left;overflow-wrap:anywhere}
+
+  .about-intro{padding:70px 0 56px}
+  .about-intro-copy h1{font-size:clamp(3.1rem,15vw,4.6rem)}
+  .about-lead{font-size:.98rem!important}
+  .identity-image{height:300px;border-radius:20px}
+  .identity-card{
+    left:10px;right:10px;bottom:10px;
+    padding:12px 14px;border-radius:15px;
+  }
+  .identity-card img{width:44px;height:44px}
+  .about-statement,.about-modules,.about-quote{padding:62px 0}
+  .statement-grid h2{font-size:clamp(2.55rem,12vw,3.9rem)}
+  .about-module{grid-template-columns:34px minmax(0,1fr) 18px;gap:12px;padding:19px}
+  .about-module h3{font-size:1.25rem}
+  .about-quote blockquote{font-size:clamp(2.1rem,10vw,3.3rem)}
+
+  .site-footer{padding:24px 0}
+  .footer-v3,.site-footer .container{
+    gap:8px;align-items:flex-start;
+    flex-direction:column;
+    font-size:.78rem;line-height:1.5;
+  }
+}
+
+/* Very small phones */
+@media (max-width:390px){
+  .container,.v3-hero-inner{width:calc(100% - 22px)!important}
+  .brand span{font-size:.64rem}
+  .v3-hero-copy h1{font-size:clamp(2.9rem,15vw,3.8rem)}
+  .premium-nav nav.menu-open{grid-template-columns:1fr}
+  .mosaic-side{grid-template-columns:1fr}
+  .gallery-thumbs{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Phone landscape: keep content compact */
+@media (max-height:520px) and (orientation:landscape) and (max-width:950px){
+  .v3-hero{padding:34px 0 38px}
+  .v3-hero-inner{grid-template-columns:1.1fr .9fr!important;gap:22px!important}
+  .v3-hero-copy h1{font-size:clamp(2.7rem,8vw,4.2rem)}
+  .hero-lead{font-size:.86rem!important;margin-bottom:14px}
+  .v3-event-card{padding:16px!important}
+  .sandakan-banner{min-height:360px}
+}
+
+/* Better touch behavior and safe areas on modern phones */
+@supports (padding:max(0px)){
+  @media (max-width:650px){
+    .site-header{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+    .site-footer{padding-bottom:max(24px,env(safe-area-inset-bottom))}
+  }
+}

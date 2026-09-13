@@ -12,3 +12,31 @@ document.documentElement.classList.add("premium-theme");
     btn.setAttribute("aria-expanded", String(open));
   });
 })();
+
+
+/* Mobile/tablet navigation polish */
+(() => {
+  const btn = document.getElementById("mobileMenuBtn");
+  const nav = document.querySelector(".premium-nav nav");
+  if (!btn || !nav) return;
+
+  const closeMenu = () => {
+    nav.classList.remove("menu-open");
+    btn.setAttribute("aria-expanded", "false");
+  };
+
+  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+
+  document.addEventListener("click", (e) => {
+    if (!nav.classList.contains("menu-open")) return;
+    if (!nav.contains(e.target) && !btn.contains(e.target)) closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+})();
