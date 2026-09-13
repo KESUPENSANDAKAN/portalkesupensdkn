@@ -49,7 +49,7 @@
     <div class="container">
       <p class="eyebrow">KESUPEN SANDAKAN</p>
       <h1>GALERI</h1>
-      <p>Galeri disusun mengikut program. Setiap gambar yang ditambah ke galeri program akan dipaparkan di sini secara automatik.</p>
+      <p>Galeri disusun mengikut program supaya gambar setiap acara mudah dicari.</p>
     </div>
   </section>
 
@@ -74,11 +74,27 @@
 <script src="js/gallery.js"></script>
 <script>
 const albumGrid = document.getElementById("albumGrid");
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const closeBtn = document.getElementById("lightboxClose");
+const galleryEmpty = document.getElementById("galleryEmpty");
+const selectedEventId = new URLSearchParams(window.location.search).get("event");
+const albums = selectedEventId
+  ? KESUPEN_GALLERY.filter(album => album.eventId === selectedEventId)
+  : KESUPEN_GALLERY;
 
-KESUPEN_GALLERY.forEach(album => {
+if (selectedEventId && albums.length) {
+  const album = albums[0];
+  document.title = `${album.title} | Galeri KESUPEN Sandakan`;
+  const heading = document.querySelector(".hero.compact h1");
+  const intro = document.querySelector(".hero.compact .container > p:not(.eyebrow)");
+  if (heading) heading.textContent = album.title;
+  if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri utama.";
+}
+
+if (!albums.length || !albums.some(album => album.images && album.images.length)) {
+  galleryEmpty.hidden = false;
+  galleryEmpty.textContent = selectedEventId ? "Belum ada gambar untuk program ini." : "Belum ada gambar dalam galeri.";
+}
+
+albums.forEach(album => {
   const card = document.createElement("article");
   card.className = "gallery-album";
 

@@ -62,15 +62,12 @@
         <p id="eventCategory"></p>
       </article>
 
-      <article class="card program-hub-card">
+      <article class="card">
         <p class="eyebrow">AKSES</p>
         <h2>Program Hub</h2>
-        <div id="programHubGallery" class="program-hub-gallery" hidden aria-label="Galeri Program">
-          <div id="programHubGalleryGrid" class="program-hub-gallery-grid"></div>
-        </div>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
-          <a class="btn secondary" href="#eventGallery">GALERI PROGRAM</a>
+          <a id="eventGalleryLink" class="btn secondary" href="gallery.html">GALERI PROGRAM</a>
         </div>
       </article>
     </div>
@@ -94,17 +91,7 @@
   </section>
 
 
-  <section class="section event-gallery-section" id="eventGallery" hidden>
-    <div class="container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">DOKUMENTASI PROGRAM</p>
-          <h2>Galeri Program</h2>
-        </div>
-      </div>
-      <div id="eventGalleryGrid" class="event-gallery-grid"></div>
-    </div>
-  </section>
+
 
 </main>
 
@@ -119,10 +106,6 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "hari-keluarga-kesupen-sandakan-2026";
 const event = KESUPEN_EVENTS.find(e => e.id === id);
-const eventGallerySection = document.getElementById("eventGallery");
-const eventGalleryGrid = document.getElementById("eventGalleryGrid");
-const programHubGallery = document.getElementById("programHubGallery");
-const programHubGalleryGrid = document.getElementById("programHubGalleryGrid");
 
 if (!event) {
   document.getElementById("eventRoot").innerHTML = `
@@ -153,27 +136,9 @@ if (!event) {
     eventMapLink.hidden = true;
   }
 
-  const galleryImages = typeof window.getKesupenEventGallery === "function"
-    ? window.getKesupenEventGallery(event.id)
-    : [];
-  if (galleryImages.length) {
-    eventGallerySection.hidden = false;
-    eventGalleryGrid.innerHTML = galleryImages.map((src, index) => `
-      <button class="event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
-        <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
-      </button>
-    `).join("");
-
-    // Paparan ringkas terus dalam Program Hub.
-    programHubGallery.hidden = false;
-    programHubGalleryGrid.innerHTML = galleryImages.map((src, index) => `
-      <button class="program-hub-gallery-item event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar program ${index + 1}">
-        <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
-      </button>
-    `).join("");
-  } else {
-    programHubGallery.hidden = true;
-    programHubGalleryGrid.innerHTML = "";
+  const eventGalleryLink = document.getElementById("eventGalleryLink");
+  if (eventGalleryLink) {
+    eventGalleryLink.href = `gallery.html?event=${encodeURIComponent(event.id)}`;
   }
 
   const ebook = document.getElementById("ebookLink");
@@ -182,22 +147,6 @@ if (!event) {
     ebook.hidden = false;
   }
 }
-const eventLightbox = document.createElement("div");
-eventLightbox.className = "lightbox";
-eventLightbox.hidden = true;
-eventLightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Tutup">×</button><img alt="">';
-document.body.appendChild(eventLightbox);
-const eventLightboxImage = eventLightbox.querySelector("img");
-const eventLightboxClose = eventLightbox.querySelector(".lightbox-close");
-function openEventImage(src) { eventLightboxImage.src = src; eventLightbox.hidden = false; }
-function closeEventImage() { eventLightbox.hidden = true; eventLightboxImage.src = ""; }
-document.addEventListener("click", e => {
-  const item = e.target.closest(".event-gallery-item");
-  if (item) openEventImage(item.dataset.src);
-});
-eventLightboxClose.addEventListener("click", closeEventImage);
-eventLightbox.addEventListener("click", e => { if (e.target === eventLightbox) closeEventImage(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeEventImage(); });
 </script>
 </body>
 </html>
