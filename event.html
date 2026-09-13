@@ -91,7 +91,7 @@
   </section>
 
 
-  <section class="section event-gallery-section" id="eventGallery" hidden>
+  <section class="section event-gallery-section" id="eventGallery">
     <div class="container">
       <div class="section-heading">
         <div>
@@ -100,6 +100,7 @@
         </div>
       </div>
       <div id="eventGalleryGrid" class="event-gallery-grid"></div>
+      <p id="eventGalleryEmpty" class="muted" hidden>Belum ada gambar untuk program ini.</p>
     </div>
   </section>
 
@@ -151,13 +152,17 @@ if (!event) {
   const galleryImages = typeof window.getKesupenEventGallery === "function"
     ? window.getKesupenEventGallery(event.id)
     : [];
+  const eventGalleryEmpty = document.getElementById("eventGalleryEmpty");
   if (galleryImages.length) {
-    eventGallerySection.hidden = false;
     eventGalleryGrid.innerHTML = galleryImages.map((src, index) => `
       <button class="event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
         <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
       </button>
     `).join("");
+    eventGalleryEmpty.hidden = true;
+  } else {
+    eventGalleryGrid.innerHTML = "";
+    eventGalleryEmpty.hidden = false;
   }
 
   const ebook = document.getElementById("ebookLink");
