@@ -754,3 +754,39 @@ button,a{-webkit-tap-highlight-color:transparent}
   .hero-news-window{min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;}
 }
 
+
+/* Desktop fix: BERITA TERKINI content viewport is fixed; all overflow stays scrollable inside it. */
+@media (min-width:901px){
+  .hero-news-card{
+    height:390px !important;
+    min-height:390px !important;
+    overflow:hidden !important;
+    box-sizing:border-box;
+  }
+  .hero-news-window{
+    flex:0 0 214px !important;
+    height:214px !important;
+    min-height:214px !important;
+    max-height:214px !important;
+    display:block !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    justify-content:initial !important;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y;
+    scrollbar-width:auto;
+    padding-right:8px !important;
+    box-sizing:border-box;
+  }
+  .hero-news-window h2{
+    min-height:0 !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+  .hero-news-summary{
+    min-height:0 !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+}
