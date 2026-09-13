@@ -707,52 +707,56 @@ button,a{-webkit-tap-highlight-color:transparent}
   }
 }
 
-
-/* Compact premium hero headline */
-.hero-headline-card{
-  width:min(100%,560px);
-  margin:20px 0 24px;
-  padding:11px 14px;
-  border:1px solid rgba(216,181,106,.28);
-  border-left:2px solid var(--gold);
-  border-radius:14px;
-  background:rgba(4,17,23,.58);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  box-shadow:0 12px 30px rgba(0,0,0,.22);
-}
-.hero-headline-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
-.hero-headline-live{font-size:.58rem;font-weight:900;letter-spacing:.14em;color:var(--gold);display:flex;align-items:center;gap:6px}
-.hero-headline-live i{width:6px;height:6px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.12)}
-#heroHeadlineCounter{font-size:.58rem;font-weight:800;letter-spacing:.1em;color:rgba(238,245,245,.52)}
-.hero-headline-window{min-width:0;overflow:hidden}
-.hero-headline-window a{color:#eef5f5;text-decoration:none}
-#heroHeadlineText{display:block;font-size:.82rem;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.headline-swap{animation:heroHeadlineIn .45s ease both}
-@keyframes heroHeadlineIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media(max-width:650px){
-  .hero-headline-card{margin:16px 0 20px;padding:10px 12px}
-  #heroHeadlineText{font-size:.75rem}
-  .hero-headline-top{margin-bottom:4px}
-}
-@media(prefers-reduced-motion:reduce){.headline-swap{animation:none}}
-
-.hero-news-panel{width:min(100%,650px);margin:22px 0 4px;padding:0 0 14px;border-bottom:1px solid rgba(255,255,255,.18)}
-.hero-news-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:10px}.news-eyebrow{color:var(--gold)!important;margin:0!important;font-size:.66rem!important;letter-spacing:.16em!important}.news-rule{display:block;width:42px;height:2px;margin-top:6px;background:var(--gold);opacity:.7}.hero-news-nav{display:flex;align-items:center;gap:7px;color:#aebdc0;font-size:.64rem;font-weight:800;letter-spacing:.08em}.hero-news-nav button{width:25px;height:25px;border:1px solid rgba(255,255,255,.18);border-radius:5px;background:rgba(255,255,255,.045);color:#fff;cursor:pointer;font-size:1rem;line-height:1}.hero-news-nav button:hover{background:rgba(216,181,106,.14);border-color:rgba(216,181,106,.45)}.hero-news-nav b{color:var(--gold)}
-.hero-news-item{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;align-items:center}.hero-news-thumb{width:92px;height:68px;overflow:hidden;border-radius:7px;background:#091820;border:1px solid rgba(255,255,255,.10)}.hero-news-thumb img{width:100%;height:100%;object-fit:cover;display:block}.hero-news-content{min-width:0}.hero-news-date{display:block;color:#9fb0b4;font-size:.57rem;font-weight:800;letter-spacing:.1em;margin-bottom:4px}.hero-news-content a{text-decoration:none;color:#fff}.hero-news-content h3{margin:0 0 4px;font-size:.9rem;line-height:1.22}.hero-news-content p{margin:0;color:#b6c3c6;font-size:.73rem;line-height:1.4;max-width:520px}.news-swap{animation:newsFade .38s ease both}@keyframes newsFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-@media(max-width:650px){.hero-news-panel{margin:18px 0 2px;padding-bottom:12px}.hero-news-item{grid-template-columns:76px minmax(0,1fr);gap:11px}.hero-news-thumb{width:76px;height:58px}.hero-news-content h3{font-size:.79rem}.hero-news-content p{font-size:.67rem}.hero-news-date{font-size:.52rem}}@media(prefers-reduced-motion:reduce){.news-swap{animation:none}}
-
-/* =========================================================
-   BERITA TERKINI — DESKTOP CENTERED
-   Keep tablet/mobile layout unchanged.
-   ========================================================= */
-@media (min-width:1201px){
-  .hero-news-panel{
-    position:absolute;
-    left:calc(50vw - 37px);
-    top:390px;
-    width:min(650px,46vw);
-    margin:0;
-    transform:translateX(-50%);
+/* Homepage hero: BERITA TERKINI replacing PROGRAM AKAN DATANG */
+.hero-news-card{min-height:390px;display:flex;flex-direction:column;justify-content:space-between}
+.news-card-top{margin-bottom:20px}
+.news-card-top #heroNewsCounter{color:var(--gold);font-size:.68rem;font-weight:900;letter-spacing:.12em}
+.hero-news-window{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center}
+.hero-news-window h2{font-size:clamp(1.55rem,2.7vw,2.45rem);line-height:1.06;letter-spacing:-.035em;margin:7px 0 14px}
+.hero-news-summary{color:#c1cdd0;line-height:1.6;font-size:.9rem;margin:0;max-width:38rem}
+.hero-news-date{margin-top:18px;color:var(--gold);font-size:.68rem;font-weight:900;letter-spacing:.12em}
+.hero-news-controls{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:10px;align-items:center;margin-top:24px}
+.hero-news-controls button{width:42px;height:42px;border:1px solid rgba(216,181,106,.28);border-radius:12px;background:rgba(255,255,255,.045);color:#fff;font-size:1.55rem;line-height:1;cursor:pointer;transition:.2s ease}
+.hero-news-controls button:hover{border-color:var(--gold);transform:translateY(-1px)}
+.hero-news-controls .btn{justify-content:center;width:100%;font-size:.7rem;padding:12px 14px}
+.news-swap{animation:heroNewsIn .42s ease both}
+@keyframes heroNewsIn{from{opacity:.15;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.news-swap{animation:none}}
+@media(max-width:900px){.hero-news-card{min-height:0}.hero-news-window h2{font-size:clamp(1.45rem,6vw,2.1rem)}}
+/* BERITA TERKINI — fixed desktop card; only inner content changes */
+@media (min-width:901px){
+  .hero-news-card{
+    height:390px;
+    min-height:390px;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  .hero-news-window{
+    min-height:210px;
+    overflow:hidden;
+  }
+  .hero-news-window h2{
+    min-height:2.12em;
+    max-height:2.12em;
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+  }
+  .hero-news-summary{
+    min-height:4.8em;
+    max-height:4.8em;
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
   }
 }
+@media (min-width:901px) and (max-width:1200px){
+  .hero-news-card{height:390px;min-height:390px;}
+}
+@media (max-width:900px){
+  .hero-news-card{height:auto;min-height:0;}
+  .hero-news-window{min-height:0;}
+}
+

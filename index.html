@@ -164,8 +164,10 @@
   let i=0,timer;
   function render(){
     const n=news[i];
-    card.classList.remove("news-swap"); void card.offsetWidth;
-    category.textContent=n.category; title.textContent=n.title; summary.textContent=n.summary; date.textContent=n.date; link.href=n.link||"#"; counter.textContent=String(i+1).padStart(2,"0")+" / "+String(news.length).padStart(2,"0"); card.classList.add("news-swap");
+    const windowEl=document.querySelector(".hero-news-window");
+    if(windowEl){ windowEl.classList.remove("news-swap"); void windowEl.offsetWidth; }
+    category.textContent=n.category; title.textContent=n.title; summary.textContent=n.summary; date.textContent=n.date; link.href=n.link||"#"; counter.textContent=String(i+1).padStart(2,"0")+" / "+String(news.length).padStart(2,"0");
+    if(windowEl) windowEl.classList.add("news-swap");
   }
   function next(){i=(i+1)%news.length;render();}
   function prev(){i=(i-1+news.length)%news.length;render();}
