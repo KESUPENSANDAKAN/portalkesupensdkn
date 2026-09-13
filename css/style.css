@@ -432,19 +432,47 @@ img{max-width:100%}
 @media(max-width:600px){.about-intro-copy h1{font-size:clamp(3.5rem,17vw,5.2rem)}.about-lead{font-size:1rem!important}.identity-image{height:330px;border-radius:22px}.identity-card{left:12px;right:12px;padding:14px 16px}.identity-card img{width:46px;height:46px}.about-statement,.about-modules,.about-quote{padding:75px 0}.statement-grid h2{font-size:clamp(2.8rem,13vw,4.5rem)}.about-module{grid-template-columns:40px 1fr 22px;padding:22px;min-height:145px}}
 
 
-/* KESUPEN 3D LOGO — SLOW ROTATION */
-.brand-logo{
-  animation: kesupenLogoSpin 14s linear infinite;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
 
-@keyframes kesupenLogoSpin{
-  0%{transform:rotateY(0deg);}
-  50%{transform:rotateY(180deg);}
-  100%{transform:rotateY(360deg);}
-}
 
-@media (prefers-reduced-motion: reduce){
-  .brand-logo{animation:none;}
+/* KESUPEN 3D BADGE MODEL — IDENTICAL FRONT + BACK */
+.brand-3d{
+  --logo-size:46px;
+  --logo-depth:7px;
+  position:relative;
+  display:inline-block;
+  width:var(--logo-size);
+  height:var(--logo-size);
+  flex:0 0 var(--logo-size);
+  perspective:700px;
+  transform-style:preserve-3d;
+  animation:kesupenBadgeRotate 14s linear infinite;
+  will-change:transform;
+}
+.brand-3d-face{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:contain;
+  border-radius:50%;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  filter:drop-shadow(0 4px 5px rgba(0,0,0,.28));
+}
+.brand-3d-front{transform:translateZ(var(--logo-depth));}
+.brand-3d-back{transform:rotateY(180deg) translateZ(var(--logo-depth));}
+.brand-3d-depth{
+  position:absolute; inset:2px;
+  border-radius:50%;
+  background:linear-gradient(90deg,#07131b,#173b55 25%,#8d9aa2 50%,#173b55 75%,#07131b);
+  transform:translateZ(0);
+  box-shadow:0 0 0 1px rgba(216,181,106,.5),0 5px 12px rgba(0,0,0,.25);
+}
+@keyframes kesupenBadgeRotate{
+  0%{transform:rotateY(0deg)}
+  100%{transform:rotateY(360deg)}
+}
+@media(max-width:650px){
+  .brand-3d{--logo-size:42px;--logo-depth:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand-3d{animation:none}
 }
