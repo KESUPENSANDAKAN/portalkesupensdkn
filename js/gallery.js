@@ -13,9 +13,8 @@ const KESUPEN_GALLERY = [
     eventId: "hari-keluarga-kesupen-sandakan-2026",
     title: "HARI KELUARGA KESUPEN SANDAKAN 2026",
     dateText: "26 SEPTEMBER 2026",
-    cover: "assets/images/hari-keluarga-kesupen-sandakan-2026.jpg",
+    cover: "assets/images/hari-keluarga-cover.jpg",
     images: [
-      "assets/images/hari-keluarga-kesupen-sandakan-2026.jpg",
       "assets/images/hari-keluarga-cover.jpg",
       "assets/images/hari-keluarga-pantai-dandulit.jpg"
     ]
