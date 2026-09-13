@@ -80,55 +80,74 @@ const albums = selectedEventId
   ? KESUPEN_GALLERY.filter(album => album.eventId === selectedEventId)
   : KESUPEN_GALLERY;
 
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxClose = document.getElementById("lightboxClose");
+
 if (selectedEventId && albums.length) {
   const album = albums[0];
   document.title = `${album.title} | Galeri KESUPEN Sandakan`;
   const heading = document.querySelector(".hero.compact h1");
   const intro = document.querySelector(".hero.compact .container > p:not(.eyebrow)");
   if (heading) heading.textContent = album.title;
-  if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri utama.";
-}
+  if (intro) intro.textContent = "Dokumentasi gambar program ini dipaparkan dalam galeri.";
 
-if (!albums.length || !albums.some(album => album.images && album.images.length)) {
-  galleryEmpty.hidden = false;
-  galleryEmpty.textContent = selectedEventId ? "Belum ada gambar untuk program ini." : "Belum ada gambar dalam galeri.";
-}
+  // Untuk Galeri Program: terus paparkan semua gambar event.
+  const images = Array.isArray(album.images) ? album.images.filter(Boolean) : [];
+  if (!images.length) {
+    galleryEmpty.hidden = false;
+    galleryEmpty.textContent = "Belum ada gambar untuk program ini.";
+  } else {
+    albumGrid.innerHTML = `<div class="gallery-event-grid">${images.map((src, index) => `
+      <button class="event-gallery-image" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
+        <img src="${src}" alt="${album.title} — gambar ${index + 1}" loading="lazy">
+      </button>
+    `).join("")}</div>`;
+  }
+} else {
+  // Galeri utama biasa: kekalkan paparan album.
+  if (!albums.length || !albums.some(album => album.images && album.images.length)) {
+    galleryEmpty.hidden = false;
+    galleryEmpty.textContent = "Belum ada gambar dalam galeri.";
+  }
 
-albums.forEach(album => {
-  const card = document.createElement("article");
-  card.className = "gallery-album";
-
-  const cover = album.cover
-    ? `<img src="${album.cover}" alt="${album.title}" loading="lazy">`
-    : `<div class="gallery-placeholder">TIADA GAMBAR</div>`;
-
-  card.innerHTML = `
-    <div class="gallery-cover">${cover}</div>
-    <div class="gallery-album-body">
-      <p class="eyebrow">${album.dateText}</p>
-      <h2>${album.title}</h2>
-      <p>${album.images.length} gambar</p>
-      <div class="gallery-thumbs">
-        ${album.images.map(src => `<button class="thumb" data-src="${src}" aria-label="Lihat gambar"><img src="${src}" alt="" loading="lazy"></button>`).join("")}
+  albums.forEach(album => {
+    const card = document.createElement("article");
+    card.className = "gallery-album";
+    const cover = album.cover
+      ? `<img src="${album.cover}" alt="${album.title}" loading="lazy">`
+      : `<div class="gallery-placeholder">TIADA GAMBAR</div>`;
+    card.innerHTML = `
+      <div class="gallery-cover">${cover}</div>
+      <div class="gallery-album-body">
+        <p class="eyebrow">${album.dateText}</p>
+        <h2>${album.title}</h2>
+        <p>${album.images.length} gambar</p>
+        <div class="gallery-thumbs">
+          ${album.images.map(src => `<button class="thumb" data-src="${src}" aria-label="Lihat gambar"><img src="${src}" alt="" loading="lazy"></button>`).join("")}
+        </div>
       </div>
-    </div>
-  `;
-  albumGrid.appendChild(card);
-});
+    `;
+    albumGrid.appendChild(card);
+  });
+}
 
 function openLightbox(src) {
   lightboxImage.src = src;
   lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
 }
-document.addEventListener("click", e => {
-  const thumb = e.target.closest(".thumb");
-  if (thumb) openLightbox(thumb.dataset.src);
-});
 function closeLightbox() {
   lightbox.hidden = true;
   lightboxImage.src = "";
+  document.body.classList.remove("lightbox-open");
 }
-closeBtn.addEventListener("click", closeLightbox);
+
+document.addEventListener("click", e => {
+  const target = e.target.closest(".thumb, .event-gallery-image");
+  if (target) openLightbox(target.dataset.src);
+});
+lightboxClose.addEventListener("click", closeLightbox);
 lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
 </script>
