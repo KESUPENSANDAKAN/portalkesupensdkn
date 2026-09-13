@@ -405,3 +405,28 @@ img{max-width:100%}
   .v3-hero-inner{position:relative;inset:auto;width:auto;margin:auto;display:grid}
   .v3-hero-copy,.v3-event-card{position:relative;left:auto;right:auto;top:auto;transform:none;width:100%;max-width:none}
 }
+
+/* =========================================================
+   ABOUT PAGE — DISTINCT EDITORIAL LAYOUT
+   Separate visual identity from the homepage hero.
+   ========================================================= */
+.about-modern{background:#071117;color:var(--text)}
+.about-intro{position:relative;overflow:hidden;padding:150px 0 90px;background:radial-gradient(circle at 82% 18%,rgba(85,215,196,.11),transparent 28%),linear-gradient(180deg,#061016 0%,#071117 100%)}
+.about-intro-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(360px,.78fr);gap:90px;align-items:center}
+.about-intro-copy{max-width:700px}
+.about-intro-copy h1{font-size:clamp(4.2rem,8vw,8.2rem);line-height:.82;letter-spacing:-.07em;margin:12px 0 30px}
+.about-intro-copy h1 span{color:var(--teal)}
+.about-lead{max-width:640px;color:#d4dfe1!important;font-size:1.2rem!important;line-height:1.65!important}
+.about-note{max-width:600px;color:var(--muted);font-size:.92rem;line-height:1.8}
+.about-line{width:110px;height:2px;margin:30px 0 24px;background:linear-gradient(90deg,var(--teal),transparent)}
+.about-identity{position:relative;max-width:500px;justify-self:end}
+.identity-image{height:520px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 35px 100px rgba(0,0,0,.5);background:#0b2029}
+.identity-image img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.04)}
+.identity-card{position:absolute;left:-55px;bottom:32px;display:flex;align-items:center;gap:16px;padding:18px 22px;border:1px solid rgba(216,181,106,.3);border-radius:18px;background:rgba(5,17,23,.9);backdrop-filter:blur(16px);box-shadow:0 20px 55px rgba(0,0,0,.45)}
+.identity-card img{width:54px;height:54px;object-fit:cover;border-radius:50%;border:1px solid rgba(216,181,106,.5)}
+.identity-card span{display:block;color:var(--gold);font-size:.62rem;font-weight:900;letter-spacing:.13em;margin-bottom:5px}.identity-card strong{font-size:.9rem;line-height:1.05;letter-spacing:.08em}
+.about-statement{background:#f4f6f5;color:#10222c;padding:105px 0}.statement-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start}.statement-grid h2{font-size:clamp(3rem,5.8vw,6rem);line-height:.92;letter-spacing:-.06em;margin:10px 0}.statement-grid h2 span{color:#087f85}.statement-copy{padding-top:15px}.statement-copy p{font-size:1.02rem;line-height:1.85;color:#52636a;margin:0 0 22px;max-width:580px}
+.about-modules{background:#071117;padding:105px 0}.about-module-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.about-module{min-height:170px;display:grid;grid-template-columns:50px 1fr 30px;gap:20px;align-items:start;padding:28px;border:1px solid var(--line);border-radius:22px;color:var(--text);text-decoration:none;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));transition:.25s}.about-module:hover{transform:translateY(-4px);border-color:rgba(85,215,196,.4);background:linear-gradient(145deg,rgba(85,215,196,.08),rgba(255,255,255,.025))}.about-module>span{color:var(--gold);font-size:.72rem;font-weight:900;letter-spacing:.1em}.about-module h3{font-size:1.45rem;margin:0 0 8px}.about-module p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.6}.about-module b{color:var(--teal);font-size:1.4rem;font-weight:400;text-align:right}
+.about-quote{padding:110px 0;background:radial-gradient(circle at 70% 50%,rgba(85,215,196,.14),transparent 35%),#061016}.about-quote blockquote{max-width:900px;margin:12px 0 35px;font-size:clamp(2.4rem,5vw,5rem);line-height:.98;letter-spacing:-.055em;font-weight:900}
+@media(max-width:900px){.about-intro{padding:120px 0 70px}.about-intro-grid{grid-template-columns:1fr;gap:55px}.about-identity{justify-self:stretch;max-width:none}.identity-image{height:420px}.identity-card{left:20px;bottom:20px}.statement-grid{grid-template-columns:1fr;gap:25px}.about-module-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.about-intro-copy h1{font-size:clamp(3.5rem,17vw,5.2rem)}.about-lead{font-size:1rem!important}.identity-image{height:330px;border-radius:22px}.identity-card{left:12px;right:12px;padding:14px 16px}.identity-card img{width:46px;height:46px}.about-statement,.about-modules,.about-quote{padding:75px 0}.statement-grid h2{font-size:clamp(2.8rem,13vw,4.5rem)}.about-module{grid-template-columns:40px 1fr 22px;padding:22px;min-height:145px}}
