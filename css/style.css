@@ -868,3 +868,57 @@ button,a{-webkit-tap-highlight-color:transparent}
   }
   .hero-news-window{overscroll-behavior-x:contain;}
 }
+
+/* FINAL MOBILE: fixed BERITA TERKINI box — only headline content changes/swipes */
+@media (max-width:900px){
+  .hero-news-card{
+    height:360px !important;
+    min-height:360px !important;
+    max-height:360px !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+  .hero-news-window{
+    flex:0 0 205px !important;
+    height:205px !important;
+    min-height:205px !important;
+    max-height:205px !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+    display:block !important;
+  }
+  .hero-news-window h2{
+    max-height:4.8em !important;
+    overflow:hidden !important;
+  }
+  .hero-news-summary{
+    max-height:6.2em !important;
+    overflow:hidden !important;
+  }
+}
+@media (max-width:650px){
+  .hero-news-card{
+    height:350px !important;
+    min-height:350px !important;
+    max-height:350px !important;
+  }
+  .hero-news-window{
+    flex-basis:195px !important;
+    height:195px !important;
+    min-height:195px !important;
+    max-height:195px !important;
+  }
+}
+@media (max-width:390px){
+  .hero-news-card{
+    height:340px !important;
+    min-height:340px !important;
+    max-height:340px !important;
+  }
+  .hero-news-window{
+    flex-basis:185px !important;
+    height:185px !important;
+    min-height:185px !important;
+    max-height:185px !important;
+  }
+}
