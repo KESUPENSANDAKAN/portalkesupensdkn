@@ -148,8 +148,9 @@ if (!event) {
     eventMapLink.hidden = true;
   }
 
-  const album = (window.KESUPEN_GALLERY || []).find(item => item.eventId === event.id);
-  const galleryImages = album && Array.isArray(album.images) ? album.images.filter(Boolean) : [];
+  const galleryImages = typeof window.getKesupenEventGallery === "function"
+    ? window.getKesupenEventGallery(event.id)
+    : [];
   if (galleryImages.length) {
     eventGallerySection.hidden = false;
     eventGalleryGrid.innerHTML = galleryImages.map((src, index) => `

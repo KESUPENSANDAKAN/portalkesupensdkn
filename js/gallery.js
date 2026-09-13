@@ -1,7 +1,12 @@
 /*
-  GALLERY CONTENT
-  Tambah album baharu di sini.
-  images ialah laluan fail gambar di dalam assets/images/<folder>/...
+  KESUPEN GALLERY — SINGLE SOURCE OF TRUTH
+  ----------------------------------------
+  Setiap gambar yang ditambah ke `images` untuk sesuatu event akan
+  dipaparkan secara automatik di:
+    1) Galeri Program pada halaman event tersebut
+    2) Galeri utama (gallery.html)
+
+  Jadi tidak perlu masukkan gambar yang sama dua kali.
 */
 const KESUPEN_GALLERY = [
   {
@@ -10,7 +15,9 @@ const KESUPEN_GALLERY = [
     dateText: "26 SEPTEMBER 2026",
     cover: "assets/images/hari-keluarga-kesupen-sandakan-2026.jpg",
     images: [
-      "assets/images/hari-keluarga-kesupen-sandakan-2026.jpg"
+      "assets/images/hari-keluarga-kesupen-sandakan-2026.jpg",
+      "assets/images/hari-keluarga-cover.jpg",
+      "assets/images/hari-keluarga-pantai-dandulit.jpg"
     ]
   },
   {
@@ -21,3 +28,10 @@ const KESUPEN_GALLERY = [
     images: []
   }
 ];
+
+
+// Helper dikongsi oleh halaman event dan galeri utama.
+window.getKesupenEventGallery = function(eventId) {
+  const album = window.KESUPEN_GALLERY.find(item => item.eventId === eventId);
+  return album && Array.isArray(album.images) ? album.images.filter(Boolean) : [];
+};
