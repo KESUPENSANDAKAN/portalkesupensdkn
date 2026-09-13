@@ -922,3 +922,24 @@ button,a{-webkit-tap-highlight-color:transparent}
     max-height:185px !important;
   }
 }
+
+/* FINAL BERITA TERKINI — minimal controls: link bottom-left, arrows + page counter top-right */
+.hero-news-card .news-card-top{display:flex;align-items:center;justify-content:space-between}
+.hero-news-card .hero-news-counter-spacer{display:block;width:72px;height:1px}
+.hero-news-controls{display:flex !important;align-items:center;justify-content:space-between !important;gap:16px !important;margin-top:14px !important}
+.hero-news-more{display:inline-flex;align-items:center;color:var(--gold);text-decoration:none;font-size:.68rem;font-weight:800;letter-spacing:.06em;white-space:nowrap;transition:opacity .2s ease,transform .2s ease}
+.hero-news-more:hover{opacity:.8;transform:translateX(2px)}
+.hero-news-nav{display:flex;align-items:center;justify-content:flex-end;gap:7px;margin-left:auto}
+.hero-news-nav button{width:30px !important;height:30px !important;border:0 !important;border-radius:8px !important;background:transparent !important;color:#fff;font-size:1.25rem !important;line-height:1;cursor:pointer;padding:0 !important;transition:color .2s ease,transform .2s ease}
+.hero-news-nav button:hover{color:var(--gold);transform:translateY(-1px)}
+.hero-news-nav span{min-width:50px;text-align:center;color:var(--gold);font-size:.62rem;font-weight:900;letter-spacing:.12em}
+@media (min-width:901px){
+  .hero-news-card .news-card-top{margin-bottom:20px}
+  .hero-news-controls{margin-top:12px !important}
+}
+@media (max-width:900px){
+  .hero-news-card .news-card-top{margin-bottom:18px}
+  .hero-news-controls{margin-top:12px !important}
+  .hero-news-more{font-size:.66rem}
+  .hero-news-nav button{width:30px !important;height:30px !important}
+}
