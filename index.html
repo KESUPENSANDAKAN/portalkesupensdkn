@@ -53,25 +53,28 @@
         <p class="eyebrow">KESUPEN SANDAKAN • PORTAL PROGRAM & AKTIVITI</p>
         <h1>Bersama<br><span>KESUPEN</span><br>Sandakan</h1>
         <p class="hero-lead">Satu komuniti. Satu keluarga. Satu matlamat. Temui program, aktiviti, e-book dan kisah kebersamaan KESUPEN Sandakan.</p>
-
-      <div class="hero-news-panel" aria-label="Berita Terkini KESUPEN">
-<div class="hero-news-heading"><div><span class="eyebrow news-eyebrow">BERITA TERKINI</span><span class="news-rule"></span></div><div class="hero-news-nav"><button type="button" id="heroNewsPrev" aria-label="Berita sebelumnya">‹</button><span><b id="heroNewsCounter">01</b> / <span id="heroNewsTotal">04</span></span><button type="button" id="heroNewsNext" aria-label="Berita seterusnya">›</button></div></div>
-<article class="hero-news-item" aria-live="polite"><div class="hero-news-thumb"><img id="heroNewsImage" src="assets/images/hari-keluarga-kesupen-sandakan-2026.jpg" alt="Berita KESUPEN Sandakan"></div><div class="hero-news-content"><span id="heroNewsDate" class="hero-news-date">26 SEPTEMBER 2026</span><a id="heroNewsLink" href="event.html?id=hari-keluarga-kesupen-sandakan-2026"><h3 id="heroNewsTitle">HARI KELUARGA KESUPEN SANDAKAN 2026</h3></a><p id="heroNewsExcerpt">Program Hari Keluarga KESUPEN Sandakan 2026.</p></div></article></div>
-<div class="hero-actions">
+        <div class="hero-actions">
           <a class="btn" href="programs.html">TEROKAI PROGRAM <span>→</span></a>
           <a class="btn secondary" href="gallery.html">LIHAT GALERI</a>
         </div>
       </div>
 
-      <aside class="v3-event-card" id="featuredEvent">
-        <div class="event-card-top"><span class="event-status">PROGRAM AKAN DATANG</span><span id="heroCountdown">—</span></div>
-        <p class="eyebrow">PROGRAM UTAMA</p>
-        <h2 id="heroEventTitle">Memuatkan…</h2>
-        <div class="event-meta">
-          <span id="heroEventDate">—</span>
-          <span id="heroEventLocation">—</span>
+      <aside class="v3-event-card hero-news-card" id="featuredNews">
+        <div class="event-card-top news-card-top">
+          <span class="event-status">BERITA TERKINI</span>
+          <span id="heroNewsCounter">01 / 04</span>
         </div>
-        <a id="heroEventLink" class="btn" href="programs.html">LIHAT BUTIRAN <span>→</span></a>
+        <div class="hero-news-window" aria-live="polite">
+          <p class="eyebrow" id="heroNewsCategory">PROGRAM</p>
+          <h2 id="heroNewsTitle">Memuatkan…</h2>
+          <p class="hero-news-summary" id="heroNewsSummary"></p>
+          <div class="hero-news-date" id="heroNewsDate"></div>
+        </div>
+        <div class="hero-news-controls">
+          <button type="button" id="heroNewsPrev" aria-label="Berita sebelumnya">‹</button>
+          <a id="heroNewsLink" class="btn" href="programs.html">BACA SELANJUTNYA <span>→</span></a>
+          <button type="button" id="heroNewsNext" aria-label="Berita seterusnya">›</button>
+        </div>
       </aside>
     </div>
     <div class="scroll-cue">SCROLL <span>↓</span></div>
@@ -141,24 +144,37 @@
   const upcoming = events.filter(e=>e.status==="upcoming").sort((a,b)=>a.date.localeCompare(b.date));
   const featured = upcoming[0];
   if(featured){
-    document.getElementById("heroEventTitle").textContent=featured.title;
-    document.getElementById("heroEventDate").textContent=featured.dateText;
-    document.getElementById("heroEventLocation").textContent=featured.location;
-    document.getElementById("heroEventLink").href=featured.eventPage || "programs.html";
     const grid=document.getElementById("upcomingGrid");
     upcoming.slice(0,3).forEach(e=>{
       const c=document.createElement("article"); c.className="v3-event-tile";
       c.innerHTML=`<div class="date-box"><strong>${e.date.split("-")[2]}</strong><small>${e.dateText.split(" ")[1]||""}</small></div><div><p class="eyebrow">${e.category}</p><h3>${e.title}</h3><p>${e.location}</p></div><a href="${e.eventPage||"programs.html"}">→</a>`;
       grid.appendChild(c);
     });
-    function tick(){
-      const days=Math.max(0,Math.ceil((new Date(featured.date+"T00:00:00")-new Date())/86400000));
-      document.getElementById("heroCountdown").textContent=days===0?"HARI INI":days+" HARI";
-    }
-    tick(); setInterval(tick,60000);
   }
+
+  const news=[
+    {category:"PROGRAM",title:"HARI KELUARGA KESUPEN SANDAKAN 2026",summary:"Program Hari Keluarga KESUPEN Sandakan 2026 akan berlangsung di Pantai Dandulit, Sandakan.",date:"26 SEPTEMBER 2026",link:"event.html?id=hari-keluarga-kesupen-sandakan-2026"},
+    {category:"E-BOOK",title:"BUKU PROGRAM DIGITAL KINI BOLEH DIAKSES",summary:"Buku program digital HARI KELUARGA KESUPEN SANDAKAN 2026 tersedia untuk rujukan dan capaian dalam talian.",date:"AKSES DIGITAL",link:"event.html?id=hari-keluarga-kesupen-sandakan-2026"},
+    {category:"GALERI",title:"DOKUMENTASI PROGRAM & AKTIVITI KESUPEN",summary:"Koleksi visual program dan aktiviti KESUPEN Sandakan dihimpunkan melalui galeri digital portal.",date:"GALERI KESUPEN",link:"gallery.html"},
+    {category:"PORTAL",title:"PUSAT RUJUKAN DIGITAL KESUPEN SANDAKAN",summary:"Maklumat program, aktiviti, dokumentasi dan buku program disusun secara mudah untuk capaian pengguna.",date:"PORTAL KESUPEN",link:"about.html"}
+  ];
+  const title=document.getElementById("heroNewsTitle"), summary=document.getElementById("heroNewsSummary"), category=document.getElementById("heroNewsCategory"), date=document.getElementById("heroNewsDate"), link=document.getElementById("heroNewsLink"), counter=document.getElementById("heroNewsCounter");
+  const card=document.getElementById("featuredNews");
+  if(!title || !news.length) return;
+  let i=0,timer;
+  function render(){
+    const n=news[i];
+    card.classList.remove("news-swap"); void card.offsetWidth;
+    category.textContent=n.category; title.textContent=n.title; summary.textContent=n.summary; date.textContent=n.date; link.href=n.link||"#"; counter.textContent=String(i+1).padStart(2,"0")+" / "+String(news.length).padStart(2,"0"); card.classList.add("news-swap");
+  }
+  function next(){i=(i+1)%news.length;render();}
+  function prev(){i=(i-1+news.length)%news.length;render();}
+  function start(){clearInterval(timer);timer=setInterval(next,5000);}
+  document.getElementById("heroNewsNext").addEventListener("click",next);
+  document.getElementById("heroNewsPrev").addEventListener("click",prev);
+  render(); start();
+  document.addEventListener("visibilitychange",()=>{if(document.hidden) clearInterval(timer); else start();});
 })();
 </script>
-<script src="js/headlines.js"></script>
 </body>
 </html>
