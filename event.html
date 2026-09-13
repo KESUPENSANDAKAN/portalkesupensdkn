@@ -67,7 +67,7 @@
         <h2>Program Hub</h2>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
-          <a class="btn secondary" href="gallery.html">GALERI</a>
+          <a class="btn secondary" href="#eventGallery">GALERI PROGRAM</a>
         </div>
       </article>
     </div>
@@ -91,6 +91,18 @@
   </section>
 
 
+  <section class="section event-gallery-section" id="eventGallery" hidden>
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">DOKUMENTASI PROGRAM</p>
+          <h2>Galeri Program</h2>
+        </div>
+      </div>
+      <div id="eventGalleryGrid" class="event-gallery-grid"></div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
@@ -99,10 +111,13 @@
 
 <script src="js/app.js"></script>
 <script src="js/events.js"></script>
+<script src="js/gallery.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "hari-keluarga-kesupen-sandakan-2026";
 const event = KESUPEN_EVENTS.find(e => e.id === id);
+const eventGallerySection = document.getElementById("eventGallery");
+const eventGalleryGrid = document.getElementById("eventGalleryGrid");
 
 if (!event) {
   document.getElementById("eventRoot").innerHTML = `
@@ -133,12 +148,39 @@ if (!event) {
     eventMapLink.hidden = true;
   }
 
+  const album = (window.KESUPEN_GALLERY || []).find(item => item.eventId === event.id);
+  const galleryImages = album && Array.isArray(album.images) ? album.images.filter(Boolean) : [];
+  if (galleryImages.length) {
+    eventGallerySection.hidden = false;
+    eventGalleryGrid.innerHTML = galleryImages.map((src, index) => `
+      <button class="event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
+        <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
+      </button>
+    `).join("");
+  }
+
   const ebook = document.getElementById("ebookLink");
   if (event.ebook && event.ebook !== "#") {
     ebook.href = event.ebook;
     ebook.hidden = false;
   }
 }
+const eventLightbox = document.createElement("div");
+eventLightbox.className = "lightbox";
+eventLightbox.hidden = true;
+eventLightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Tutup">×</button><img alt="">';
+document.body.appendChild(eventLightbox);
+const eventLightboxImage = eventLightbox.querySelector("img");
+const eventLightboxClose = eventLightbox.querySelector(".lightbox-close");
+function openEventImage(src) { eventLightboxImage.src = src; eventLightbox.hidden = false; }
+function closeEventImage() { eventLightbox.hidden = true; eventLightboxImage.src = ""; }
+document.addEventListener("click", e => {
+  const item = e.target.closest(".event-gallery-item");
+  if (item) openEventImage(item.dataset.src);
+});
+eventLightboxClose.addEventListener("click", closeEventImage);
+eventLightbox.addEventListener("click", e => { if (e.target === eventLightbox) closeEventImage(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeEventImage(); });
 </script>
 </body>
 </html>
