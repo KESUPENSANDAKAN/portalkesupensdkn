@@ -62,9 +62,12 @@
         <p id="eventCategory"></p>
       </article>
 
-      <article class="card">
+      <article class="card program-hub-card">
         <p class="eyebrow">AKSES</p>
         <h2>Program Hub</h2>
+        <div id="programHubGallery" class="program-hub-gallery" hidden aria-label="Galeri Program">
+          <div id="programHubGalleryGrid" class="program-hub-gallery-grid"></div>
+        </div>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
           <a class="btn secondary" href="#eventGallery">GALERI PROGRAM</a>
@@ -91,7 +94,7 @@
   </section>
 
 
-  <section class="section event-gallery-section" id="eventGallery">
+  <section class="section event-gallery-section" id="eventGallery" hidden>
     <div class="container">
       <div class="section-heading">
         <div>
@@ -100,7 +103,6 @@
         </div>
       </div>
       <div id="eventGalleryGrid" class="event-gallery-grid"></div>
-      <p id="eventGalleryEmpty" class="muted" hidden>Belum ada gambar untuk program ini.</p>
     </div>
   </section>
 
@@ -119,6 +121,8 @@ const id = params.get("id") || "hari-keluarga-kesupen-sandakan-2026";
 const event = KESUPEN_EVENTS.find(e => e.id === id);
 const eventGallerySection = document.getElementById("eventGallery");
 const eventGalleryGrid = document.getElementById("eventGalleryGrid");
+const programHubGallery = document.getElementById("programHubGallery");
+const programHubGalleryGrid = document.getElementById("programHubGalleryGrid");
 
 if (!event) {
   document.getElementById("eventRoot").innerHTML = `
@@ -152,17 +156,24 @@ if (!event) {
   const galleryImages = typeof window.getKesupenEventGallery === "function"
     ? window.getKesupenEventGallery(event.id)
     : [];
-  const eventGalleryEmpty = document.getElementById("eventGalleryEmpty");
   if (galleryImages.length) {
+    eventGallerySection.hidden = false;
     eventGalleryGrid.innerHTML = galleryImages.map((src, index) => `
       <button class="event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar ${index + 1}">
         <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
       </button>
     `).join("");
-    eventGalleryEmpty.hidden = true;
+
+    // Paparan ringkas terus dalam Program Hub.
+    programHubGallery.hidden = false;
+    programHubGalleryGrid.innerHTML = galleryImages.map((src, index) => `
+      <button class="program-hub-gallery-item event-gallery-item" type="button" data-src="${src}" aria-label="Lihat gambar program ${index + 1}">
+        <img src="${src}" alt="${event.title} — gambar ${index + 1}" loading="lazy">
+      </button>
+    `).join("");
   } else {
-    eventGalleryGrid.innerHTML = "";
-    eventGalleryEmpty.hidden = false;
+    programHubGallery.hidden = true;
+    programHubGalleryGrid.innerHTML = "";
   }
 
   const ebook = document.getElementById("ebookLink");
