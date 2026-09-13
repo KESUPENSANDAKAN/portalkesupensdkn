@@ -53,6 +53,18 @@
         <p class="eyebrow">KESUPEN SANDAKAN • PORTAL PROGRAM & AKTIVITI</p>
         <h1>Bersama<br><span>KESUPEN</span><br>Sandakan</h1>
         <p class="hero-lead">Satu komuniti. Satu keluarga. Satu matlamat. Temui program, aktiviti, e-book dan kisah kebersamaan KESUPEN Sandakan.</p>
+
+      <div class="hero-headline-card" aria-label="Maklumat terkini KESUPEN">
+        <div class="hero-headline-top">
+          <span class="hero-headline-live"><i></i> TERKINI</span>
+          <span id="heroHeadlineCounter">01</span>
+        </div>
+        <div class="hero-headline-window" aria-live="polite">
+          <a id="heroHeadlineLink" href="event.html?id=hari-keluarga-kesupen-sandakan-2026">
+            <span id="heroHeadlineText"></span>
+          </a>
+        </div>
+      </div>
         <div class="hero-actions">
           <a class="btn" href="programs.html">TEROKAI PROGRAM <span>→</span></a>
           <a class="btn secondary" href="gallery.html">LIHAT GALERI</a>
@@ -72,21 +84,6 @@
     </div>
     <div class="scroll-cue">SCROLL <span>↓</span></div>
   </section>
-<section class="kesupen-headlines" aria-label="Maklumat terkini KESUPEN">
-  <div class="container">
-    <div class="headline-bar">
-      <div class="headline-label">
-        <span class="headline-live-dot"></span>
-        <span>TERKINI</span>
-      </div>
-      <div class="headline-window" aria-live="polite">
-        <div id="kesupenHeadline" class="headline-text"></div>
-      </div>
-      <div class="headline-counter" id="headlineCounter" aria-hidden="true"></div>
-    </div>
-  </div>
-</section>
-
 
   <section class="section v3-featured">
     <div class="container">
@@ -170,71 +167,6 @@
   }
 })();
 </script>
-
-<script>
-/* KESUPEN Headlines — editable list, rotates automatically every 4 seconds. */
-window.KESUPEN_HEADLINES = [
-  {
-    text: "PROGRAM TERDEKAT: HARI KELUARGA KESUPEN SANDAKAN 2026 — 26 SEPTEMBER 2026",
-    link: "event.html?id=hari-keluarga-kesupen-sandakan-2026"
-  },
-  {
-    text: "BUKU PROGRAM DIGITAL HARI KELUARGA KESUPEN SANDAKAN 2026 KINI BOLEH DIAKSES",
-    link: "event.html?id=hari-keluarga-kesupen-sandakan-2026"
-  },
-  {
-    text: "GALERI KESUPEN: DOKUMENTASI PROGRAM DAN AKTIVITI TERKINI",
-    link: "gallery.html"
-  },
-  {
-    text: "PORTAL KESUPEN SANDAKAN — PUSAT RUJUKAN DIGITAL UNTUK PROGRAM, AKTIVITI DAN DOKUMENTASI",
-    link: "about.html"
-  }
-];
-
-(() => {
-  const textEl = document.getElementById("kesupenHeadline");
-  const counterEl = document.getElementById("headlineCounter");
-  if (!textEl || !window.KESUPEN_HEADLINES?.length) return;
-
-  let index = 0;
-  let timer;
-
-  const render = () => {
-    const item = window.KESUPEN_HEADLINES[index];
-    textEl.classList.remove("headline-in");
-    void textEl.offsetWidth;
-    textEl.innerHTML = item.link
-      ? `<a href="${item.link}">${item.text}</a>`
-      : item.text;
-    textEl.classList.add("headline-in");
-    if (counterEl) {
-      counterEl.textContent = `${index + 1}/${window.KESUPEN_HEADLINES.length}`;
-    }
-  };
-
-  const next = () => {
-    index = (index + 1) % window.KESUPEN_HEADLINES.length;
-    render();
-  };
-
-  const start = () => {
-    clearInterval(timer);
-    timer = setInterval(next, 4000);
-  };
-
-  render();
-  start();
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) clearInterval(timer);
-    else {
-      render();
-      start();
-    }
-  });
-})();
-</script>
-
+<script src="js/headlines.js"></script>
 </body>
 </html>

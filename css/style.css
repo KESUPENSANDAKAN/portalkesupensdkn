@@ -708,82 +708,31 @@ button,a{-webkit-tap-highlight-color:transparent}
 }
 
 
-/* =========================================================
-   KESUPEN HEADLINES — AUTO ROTATING
-   ========================================================= */
-.kesupen-headlines{
-  position:relative;
-  z-index:8;
-  margin-top:0;
-  padding:10px 0;
-  background:rgba(4,15,20,.96);
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
+/* Compact premium hero headline */
+.hero-headline-card{
+  width:min(100%,560px);
+  margin:20px 0 24px;
+  padding:11px 14px;
+  border:1px solid rgba(216,181,106,.28);
+  border-left:2px solid var(--gold);
+  border-radius:14px;
+  background:rgba(4,17,23,.58);
   backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
 }
-.headline-bar{
-  min-height:48px;
-  display:grid;
-  grid-template-columns:auto minmax(0,1fr) auto;
-  align-items:center;
-  gap:16px;
+.hero-headline-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.hero-headline-live{font-size:.58rem;font-weight:900;letter-spacing:.14em;color:var(--gold);display:flex;align-items:center;gap:6px}
+.hero-headline-live i{width:6px;height:6px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.12)}
+#heroHeadlineCounter{font-size:.58rem;font-weight:800;letter-spacing:.1em;color:rgba(238,245,245,.52)}
+.hero-headline-window{min-width:0;overflow:hidden}
+.hero-headline-window a{color:#eef5f5;text-decoration:none}
+#heroHeadlineText{display:block;font-size:.82rem;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.headline-swap{animation:heroHeadlineIn .45s ease both}
+@keyframes heroHeadlineIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:650px){
+  .hero-headline-card{margin:16px 0 20px;padding:10px 12px}
+  #heroHeadlineText{font-size:.75rem}
+  .hero-headline-top{margin-bottom:4px}
 }
-.headline-label{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#fff;
-  font-size:.7rem;
-  font-weight:800;
-  letter-spacing:.14em;
-  white-space:nowrap;
-}
-.headline-live-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:#ef4444;
-  box-shadow:0 0 0 4px rgba(239,68,68,.12);
-  animation:headlinePulse 1.8s ease-in-out infinite;
-}
-.headline-window{min-width:0;overflow:hidden}
-.headline-text{
-  min-width:0;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  opacity:0;
-  transform:translateY(8px);
-}
-.headline-text.headline-in{
-  animation:headlineIn .55s ease forwards;
-}
-.headline-text a{
-  color:inherit;
-  text-decoration:none;
-}
-.headline-text a:hover{text-decoration:underline}
-.headline-counter{
-  font-size:.68rem;
-  font-weight:700;
-  letter-spacing:.08em;
-  opacity:.55;
-  white-space:nowrap;
-}
-@keyframes headlineIn{
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes headlinePulse{
-  0%,100%{opacity:.55;transform:scale(.9)}
-  50%{opacity:1;transform:scale(1.12)}
-}
-@media (max-width:650px){
-  .kesupen-headlines{padding:8px 0}
-  .headline-bar{min-height:44px;gap:10px}
-  .headline-label{font-size:.61rem;letter-spacing:.1em;gap:6px}
-  .headline-live-dot{width:7px;height:7px}
-  .headline-text{font-size:.78rem}
-  .headline-counter{font-size:.6rem}
-}
-@media (prefers-reduced-motion:reduce){
-  .headline-live-dot{animation:none}
-  .headline-text.headline-in{animation:none;opacity:1;transform:none}
-}
+@media(prefers-reduced-motion:reduce){.headline-swap{animation:none}}
