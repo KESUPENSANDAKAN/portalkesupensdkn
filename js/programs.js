@@ -1,7 +1,7 @@
 const grid = document.getElementById("eventGrid");
 const emptyState = document.getElementById("emptyState");
 
-function renderEvents(filter = "upcoming") {
+function renderEvents(filter = "all") {
   const items = KESUPEN_EVENTS.filter(e => filter === "all" || e.status === filter);
   grid.innerHTML = "";
 
@@ -34,4 +34,4 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
   });
 });
 
-renderEvents("upcoming");
+renderEvents();
