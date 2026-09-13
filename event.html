@@ -63,15 +63,19 @@
       </article>
 
       <article class="card">
-        <p class="eyebrow">AKSES</p>
+        <p class="eyebrow">AKSES PROGRAM</p>
         <h2>Program Hub</h2>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
           <a class="btn secondary" href="gallery.html">GALERI</a>
-          <a class="btn secondary" href="contact.html">LOCATION</a>
         </div>
       </article>
-    </div>
+      <article class="card event-location-card">
+        <p class="eyebrow">LOCATION</p>
+        <h2 id="locationTitle">Lokasi Event</h2>
+        <p id="locationAddress"></p>
+        <a id="eventMapLink" class="btn" href="#" target="_blank" rel="noopener">BUKA GOOGLE MAPS</a>
+      </article>    </div>
   </section>
 
   <section class="section">
@@ -115,6 +119,13 @@ if (!event) {
   document.getElementById("eventDate").textContent = event.dateText;
   document.getElementById("eventLocation").textContent = event.location;
   document.getElementById("eventCategory").textContent = event.category;
+
+  // Location is specific to the current event, while contact.html remains the office location.
+  const locationText = event.location || "";
+  document.getElementById("locationAddress").textContent = locationText;
+  const mapQuery = encodeURIComponent(locationText);
+  document.getElementById("eventMapLink").href = event.mapUrl ||
+    `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   const ebook = document.getElementById("ebookLink");
   if (event.ebook && event.ebook !== "#") {
