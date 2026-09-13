@@ -853,3 +853,18 @@ button,a{-webkit-tap-highlight-color:transparent}
 @media (min-width:1201px){
   .hero-news-card{width:355px !important;max-width:355px !important;}
 }
+
+/* Mobile BERITA TERKINI: horizontal swipe between headlines */
+@media (max-width:900px){
+  .hero-news-window{
+    touch-action:pan-x !important;
+    overflow-x:hidden !important;
+    overflow-y:hidden !important;
+    cursor:grab;
+  }
+  .hero-news-window.is-dragging{cursor:grabbing;}
+  .hero-news-window h2,.hero-news-summary,.hero-news-date,.hero-news-window .eyebrow{
+    overflow-wrap:anywhere;
+  }
+  .hero-news-window{overscroll-behavior-x:contain;}
+}
