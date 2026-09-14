@@ -3,11 +3,10 @@
 <head>
 <meta name="description" content="Portal rasmi KESUPEN Sandakan — program, e-book, galeri dan maklumat KESUPEN.">
 <meta name="theme-color" content="#0b1020">
-  <meta name="robots" content="noindex, follow">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Program | KESUPEN Sandakan</title>
-  <link rel="icon" type="image/png" href="assets/images/kesupen-logo.png">
+  <link rel="icon" type="image/jpeg" href="assets/images/kesupen-logo.jpeg">
   <link rel="stylesheet" href="css/style.css">
 <meta property="og:site_name" content="KESUPEN Sandakan">
 <meta property="og:title" content="Program | KESUPEN Sandakan">
@@ -30,7 +29,7 @@
 <header class="site-header premium-nav">
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="KESUPEN Sandakan">
-      <img class="brand-logo" src="assets/images/kesupen-logo.png" alt="Logo KESUPEN Sandakan">
+      <img class="brand-logo" src="assets/images/kesupen-logo.jpeg" alt="Logo KESUPEN Sandakan">
       <span>KESUPEN<br><b>SANDAKAN</b></span>
     </a>
     <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">☰</button>
@@ -68,32 +67,26 @@
         <h2>Program Hub</h2>
         <div class="event-actions">
           <a id="ebookLink" class="btn" href="#" target="_blank" rel="noopener" hidden>BUKA E-BOOK</a>
-          <a id="eventGalleryLink" class="btn secondary" href="gallery.html">GALERI PROGRAM</a>
+          <a class="btn secondary" href="gallery.html">GALERI</a>
+          <a class="btn secondary" href="contact.html">LOCATION</a>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="section event-location-section" id="eventLocationSection">
+  <section class="section">
     <div class="container">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">LOKASI PROGRAM</p>
-          <h2>Lokasi</h2>
+          <p class="eyebrow">PROGRAMME</p>
+          <h2>Atur Cara</h2>
         </div>
       </div>
-      <article class="card event-location-card">
-        <p id="eventLocationAddress">Lokasi tidak dinyatakan.</p>
-        <div class="event-actions">
-          <a id="eventMapLink" class="btn secondary" href="#" target="_blank" rel="noopener" hidden>BUKA GOOGLE MAPS</a>
-        </div>
-      </article>
+      <div class="card">
+        <p>Maklumat atur cara bagi setiap program boleh dimasukkan kemudian mengikut keperluan acara.</p>
+      </div>
     </div>
   </section>
-
-
-
-
 </main>
 
 <footer class="site-footer">
@@ -102,7 +95,6 @@
 
 <script src="js/app.js"></script>
 <script src="js/events.js"></script>
-<script src="js/gallery.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "hari-keluarga-kesupen-sandakan-2026";
@@ -121,26 +113,8 @@ if (!event) {
   document.getElementById("eventTitle").textContent = event.title;
   document.getElementById("eventDescription").textContent = event.description;
   document.getElementById("eventDate").textContent = event.dateText;
-  document.getElementById("eventLocation").textContent = event.location || "Lokasi tidak dinyatakan.";
+  document.getElementById("eventLocation").textContent = event.location;
   document.getElementById("eventCategory").textContent = event.category;
-
-  const locationSection = document.getElementById("eventLocationSection");
-  const locationAddress = document.getElementById("eventLocationAddress");
-  const eventMapLink = document.getElementById("eventMapLink");
-  if (event.location) {
-    locationAddress.textContent = event.location;
-    const mapUrl = event.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`;
-    eventMapLink.href = mapUrl;
-    eventMapLink.hidden = false;
-  } else {
-    locationAddress.textContent = "Lokasi belum dinyatakan untuk program ini.";
-    eventMapLink.hidden = true;
-  }
-
-  const eventGalleryLink = document.getElementById("eventGalleryLink");
-  if (eventGalleryLink) {
-    eventGalleryLink.href = `gallery.html?event=${encodeURIComponent(event.id)}`;
-  }
 
   const ebook = document.getElementById("ebookLink");
   if (event.ebook && event.ebook !== "#") {
